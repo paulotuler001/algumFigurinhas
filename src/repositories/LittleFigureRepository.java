@@ -1,4 +1,4 @@
-package LittleFigures;
+package repositories;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,7 +8,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
 
-import Configuration.SQLite;
+import configuration.SQLite;
+import entities.LittleFigure;
 
 public class LittleFigureRepository {
 
@@ -40,8 +41,8 @@ public class LittleFigureRepository {
 		Connection conn = SQLite.getConnection();
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		){
-		pstmt.setInt(1, lFigure.id);
-		pstmt.setString(2, lFigure.name);
+		pstmt.setInt(1, lFigure.getId());
+		pstmt.setString(2, lFigure.getName());
 		pstmt.executeUpdate();
 		SQLite.closeConnection();
 		}catch(SQLException e) {System.out.println(e.getMessage());}
@@ -117,8 +118,8 @@ public class LittleFigureRepository {
 		Connection conn = SQLite.getConnection();
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		){
-		pstmt.setInt(1,  lFigure.id);
-		pstmt.setString(2,  lFigure.name);
+		pstmt.setInt(1,  lFigure.getId());
+		pstmt.setString(2,  lFigure.getName());
 		pstmt.setInt(3,  id);
 		pstmt.executeQuery();
 		SQLite.closeConnection();

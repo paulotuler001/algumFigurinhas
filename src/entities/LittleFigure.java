@@ -1,4 +1,4 @@
-package LittleFigures;
+package entities;
 
 public class LittleFigure {
 
