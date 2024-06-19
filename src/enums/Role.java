@@ -2,6 +2,6 @@ package enums;
 
 public enum Role {
 	ADM,
-	COLLECTOR,
+	COLLECTIONATOR,
 	AUTHOR
 }

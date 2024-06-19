@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 import enums.Role;
 
-public class Author extends CollectorUser {
+public class Author extends User {
 
 	public Author(Integer id, String name, Boolean active, Role role, String email, String senha, LocalDate created_at,
 			String deleteDescription, Integer idFavorites) {

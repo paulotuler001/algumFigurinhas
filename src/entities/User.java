@@ -5,7 +5,7 @@ import java.time.LocalDate;
 
 import enums.Role;
 
-abstract class CollectorUser {
+public abstract class User {
 	
 	protected Integer id;
 	protected String name;
@@ -18,13 +18,13 @@ abstract class CollectorUser {
 	protected Integer idFavorites;
 	
 	
-	public CollectorUser(Integer id, String name, Boolean active, Role role, String email, String senha, LocalDate created_at,
+	public User(Integer id, String name, Boolean active, Role role, String email, String senha, LocalDate created_at,
 			String deleteDescription, Integer idFavorites) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.active = active;
-		this.role = Role.COLLECTOR;
+		this.role = Role.COLLECTIONATOR;
 		this.email = email;
 		this.senha = senha;
 		this.created_at = created_at;

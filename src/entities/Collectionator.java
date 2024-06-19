@@ -4,12 +4,12 @@ import java.time.LocalDate;
 
 import enums.Role;
 
-public class Administrator extends User {
+public class Collectionator extends User {
 
-	public Administrator(Integer id, String name, Boolean active, Role role, String email, String senha,
+	public Collectionator(Integer id, String name, Boolean active, Role role, String email, String senha,
 			LocalDate created_at, String deleteDescription, Integer idFavorites) {
 		super(id, name, active, role, email, senha, created_at, deleteDescription, idFavorites);
-		this.role = Role.ADM;
+		this.role = Role.COLLECTIONATOR;
 	}
-	
+
 }
