@@ -6,6 +6,8 @@ import enums.Role;
 
 public class Author extends User {
 
+	private Integer idAlbum;
+	
 	public Author(Integer id, String name, Boolean active, Role role, String email, String senha, LocalDate created_at,
 			String deleteDescription, Integer idFavorites) {
 		super(id, name, active, role, email, senha, created_at, deleteDescription, idFavorites);

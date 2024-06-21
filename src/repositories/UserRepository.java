@@ -20,7 +20,8 @@ public class UserRepository {
 
 		String sql = "CREATE TABLE IF NOT EXISTS user(\n" 
 		+ "id integer primary key,\n" 
-		+ "nome TEXT NOT NULL\n" 
+		+ "name TEXT NOT NULL,\n"
+		+ "role TEXT NOT NULL\n"
 		+ ");";
 
 		try (Connection conn = SQLite.getConnection(); Statement stmt = conn.createStatement();) {
@@ -34,11 +35,12 @@ public class UserRepository {
 
 	public void saveUser(User user) {
 
-		String sql = "INSERT INTO user(id, nome) VALUES(?, ?)";
+		String sql = "INSERT INTO user(id, name, role) VALUES(?, ?, ?)";
 
 		try (Connection conn = SQLite.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql);) {
 			pstmt.setInt(1, user.getId());
 			pstmt.setString(2, user.getName());
+			pstmt.setString(3, user.getRole().toString());
 			pstmt.executeUpdate();
 			SQLite.closeConnection();
 		} catch (SQLException e) {
@@ -46,9 +48,10 @@ public class UserRepository {
 		}
 	}
 
-	public void getUserById(Integer id) {
+	public User getUserById(Integer id) {
 
 		String sql = "SELECT * FROM user WHERE user.id = ?";
+		User user = null;
 
 		try (Connection conn = SQLite.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql);) {
 			pstmt.setInt(1, id);
@@ -58,11 +61,10 @@ public class UserRepository {
 				int userId = rs.getInt("id");
 				String userName = rs.getString("name");
 				String role = rs.getString("role");
-				User user = null;
 
-				if (role == Role.ADM.toString()) {
+				if (role.equals(Role.ADM.toString())) {
 					user = new Administrator(userId, userName, null, null, userName, userName, null, userName, userId);
-				} else if (role == Role.AUTHOR.toString()) {
+				} else if (role.equals(Role.AUTHOR.toString())) {
 					user = new Author(userId, userName, null, null, userName, userName, null, userName, userId);
 				} else {
 					user = new Collectionator(userId, userName, null, null, userName, userName, null, userName, userId);
@@ -70,10 +72,14 @@ public class UserRepository {
 
 				this.toString(user);
 			}
-
+			
 			SQLite.closeConnection();
+
+			return user;
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
+			return user;
+			
 		}
 	}
 
@@ -87,9 +93,11 @@ public class UserRepository {
 
 			while (rs.next()) {
 				int id = rs.getInt("id");
-				String name = rs.getString("nome");
+				String name = rs.getString("name");
 				System.out.println("ID: " + id + ", Nome: " + name);
 			}
+			
+			SQLite.closeConnection();
 
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
@@ -124,6 +132,21 @@ public class UserRepository {
 			System.out.println(e.getMessage());
 		}
 	}
+	
+	public void login(User user) {
+		
+		String sql = "SELECT * FROM user WHERE user.email = ? and user.password = ?";
+		
+		try(Connection conn = SQLite.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)){
+			pstmt.setString(1, user.getEmail());
+			pstmt.setString(2, user.getPassword());
+			SQLite.closeConnection();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		
+	}
+	
 
 	public void toString(User user) {
 		System.out.println(user.getId() + " " + user.getName());

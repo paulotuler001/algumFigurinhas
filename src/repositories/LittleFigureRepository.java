@@ -48,10 +48,10 @@ public class LittleFigureRepository {
 		}catch(SQLException e) {System.out.println(e.getMessage());}
 	}
 
-	public void getLFById(Integer id) {
+	public Boolean getLFById(Integer id) {
 
 		String sql = "SELECT * FROM lFigure WHERE lFigure.id = ?";
-		
+		LittleFigure lf = null;
 		try(
 		Connection conn = SQLite.getConnection();
 		PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -64,12 +64,17 @@ public class LittleFigureRepository {
 			int lfId = rs.getInt("id");
 			String name = rs.getString("nome");
 			
-			LittleFigure lf = new LittleFigure(lfId, name);	
+			lf = new LittleFigure(lfId, name);	
 			this.toString(lf);
 		}
 		
 		SQLite.closeConnection();
-		}catch(SQLException e) {System.out.println(e.getMessage());}
+		
+		return lf.getId() > 0;
+		}catch(SQLException e) {
+			System.out.println(e.getMessage());
+			return false;
+		}
 	}
 	
 	public void getAllLittleFigures() {

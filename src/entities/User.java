@@ -12,13 +12,13 @@ public abstract class User {
 	protected Boolean active;
 	protected Role role;
 	protected String email;
-	protected String senha;
+	protected String password;
 	protected LocalDate created_at;
 	protected String deleteDescription;
 	protected Integer idFavorites;
 	
 	
-	public User(Integer id, String name, Boolean active, Role role, String email, String senha, LocalDate created_at,
+	public User(Integer id, String name, Boolean active, Role role, String email, String password, LocalDate created_at,
 			String deleteDescription, Integer idFavorites) {
 		super();
 		this.id = id;
@@ -26,7 +26,7 @@ public abstract class User {
 		this.active = active;
 		this.role = Role.COLLECTIONATOR;
 		this.email = email;
-		this.senha = senha;
+		this.password = password;
 		this.created_at = created_at;
 		this.deleteDescription = deleteDescription;
 		this.idFavorites = idFavorites;
@@ -61,11 +61,11 @@ public abstract class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getSenha() {
-		return senha;
+	public String getPassword() {
+		return password;
 	}
-	public void setSenha(String senha) {
-		this.senha = senha;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	public LocalDate getCreated_at() {
 		return created_at;
