@@ -8,17 +8,13 @@ import java.sql.Statement;
 
 import configuration.SQLite;
 import entities.Administrator;
-import entities.Author;
-import entities.Collectionator;
-import entities.User;
-import entities.LittleFigure;
 import enums.Role;
 
-public class UserRepository {
+public class AdminRepository {
 
 	public void createTable() {
 
-		String sql = "CREATE TABLE IF NOT EXISTS user(\n" 
+		String sql = "CREATE TABLE IF NOT EXISTS admin(\n" 
 		+ "id integer primary key,\n" 
 		+ "name TEXT NOT NULL,\n"
 		+ "role TEXT NOT NULL\n"
@@ -33,14 +29,14 @@ public class UserRepository {
 		}
 	}
 
-	public void saveUser(User user) {
+	public void saveAdmin(Administrator adm) {
 
-		String sql = "INSERT INTO user(id, name, role) VALUES(?, ?, ?)";
+		String sql = "INSERT INTO admin(id, name, role) VALUES(?, ?, ?)";
 
 		try (Connection conn = SQLite.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql);) {
-			pstmt.setInt(1, user.getId());
-			pstmt.setString(2, user.getName());
-			pstmt.setString(3, user.getRole().toString());
+			pstmt.setInt(1, adm.getId());
+			pstmt.setString(2, adm.getName());
+			pstmt.setString(3, adm.getRole().toString());
 			pstmt.executeUpdate();
 			SQLite.closeConnection();
 		} catch (SQLException e) {
@@ -48,10 +44,10 @@ public class UserRepository {
 		}
 	}
 
-	public User getUserById(Integer id) {
+	public Boolean getAdminById(Integer id) {
 
-		String sql = "SELECT * FROM user WHERE user.id = ?";
-		User user = null;
+		String sql = "SELECT * FROM admin WHERE admin.id = ?";
+		Administrator adm = null;
 
 		try (Connection conn = SQLite.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql);) {
 			pstmt.setInt(1, id);
@@ -62,69 +58,30 @@ public class UserRepository {
 				String userName = rs.getString("name");
 				String role = rs.getString("role");
 
-				if (role.equals(Role.ADM.toString())) {
-					user = new Administrator(userId, userName, null, null, userName, userName, null, userName, userId);
-				} else if (role.equals(Role.AUTHOR.toString())) {
-					user = new Author(userId, userName, null, null, userName, userName, null, userName, userId);
-				} else {
-					user = new Collectionator(userId, userName, null, null, userName, userName, null, userName, userId);
-				}
+				if (role.equals(Role.ADM.toString())) 
+					adm = new Administrator(userId, userName, Role.ADM);
+				
 
-				this.toString(user);
+				this.toString(adm);
 			}
 			
 			SQLite.closeConnection();
 
-			return user;
+			return adm.toString().length()>0;
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
-			return user;
+			return false;
 			
 		}
 	}
 
-	public void getAllUsers() {
+	public void editAdminById(Integer id, Administrator adm) {
 
-		String sql = "SELECT * FROM user";
-
-		try (Connection conn = SQLite.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql);) {
-
-			ResultSet rs = pstmt.executeQuery();
-
-			while (rs.next()) {
-				int id = rs.getInt("id");
-				String name = rs.getString("name");
-				System.out.println("ID: " + id + ", Nome: " + name);
-			}
-			
-			SQLite.closeConnection();
-
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}
-
-	}
-
-	public void deleteUserById(Integer id) {
-
-		String sql = "DELETE FROM user WHERE user.id = ?";
-
-		try (Connection conn = SQLite.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql);) {
-			pstmt.setInt(1, id);
-			pstmt.executeQuery();
-			SQLite.closeConnection();
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}
-	}
-
-	public void editUserById(Integer id, User user) {
-
-		String sql = "UPDATE user SET id = ?, nome = ? WHERE user.id = ?";
+		String sql = "UPDATE admin SET id = ?, name = ? WHERE admin.id = ?";
 
 		try (Connection conn = SQLite.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
-			pstmt.setInt(1, user.getId());
-			pstmt.setString(2, user.getName());
+			pstmt.setInt(1, adm.getId());
+			pstmt.setString(2, adm.getName());
 			pstmt.setInt(3, id);
 			pstmt.executeQuery();
 			SQLite.closeConnection();
@@ -133,22 +90,18 @@ public class UserRepository {
 		}
 	}
 	
-	public void login(User user) {
+	public void login(String login, String senha) {
 		
-		String sql = "SELECT * FROM user WHERE user.email = ? and user.password = ?";
-		
-		try(Connection conn = SQLite.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)){
-			pstmt.setString(1, user.getEmail());
-			pstmt.setString(2, user.getPassword());
-			SQLite.closeConnection();
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+		if(login.equals("admin") && senha.equals("coxinha123")) {
+			System.out.println("entrou");
+		}else{
+			System.out.println("login ou senha incorreto");
 		}
 		
 	}
 	
 
-	public void toString(User user) {
-		System.out.println(user.getId() + " " + user.getName());
+	public void toString(Administrator adm) {
+		System.out.println(adm.getId() + " " + adm.getName());
 	}
 }

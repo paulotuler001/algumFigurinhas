@@ -1,15 +1,37 @@
 package entities;
 
-import java.time.LocalDate;
-
 import enums.Role;
 
-public class Administrator extends User {
+public class Administrator{
 
-	public Administrator(Integer id, String name, Boolean active, Role role, String email, String senha,
-			LocalDate created_at, String deleteDescription, Integer idFavorites) {
-		super(id, name, active, role, email, senha, created_at, deleteDescription, idFavorites);
-		this.role = Role.ADM;
+	private Integer id;
+	private String name;
+	private Role role;
+	
+	public Administrator(Integer id, String name, Role role) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.role = role;
 	}
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public Role getRole() {
+		return role;
+	}
+	public void setRole(Role role) {
+		this.role = role;
+	}
+	
 	
 }

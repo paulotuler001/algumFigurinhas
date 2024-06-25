@@ -1,10 +1,7 @@
 package services;
 
-import entities.Album;
 import entities.LittleFigure;
-import repositories.AlbumRepository;
 import repositories.LittleFigureRepository;
-import repositories.UserRepository;
 
 public class LittleFigureService {
 	
@@ -14,16 +11,10 @@ public class LittleFigureService {
 		
 		if(lf.getName().length() < 1) 
 			throw new ExceptionService("Digite um nome válido");
-		else if(lf.getIdAlbum() < 1 || lf.getId() < 1)
+		else if(lf.getId() < 1)
 			throw new ExceptionService("Digite um id válido");
-		else if(lf.getNumberInAlbum() < 0) 
+		else if(lf.getNumber() < 0) 
 			throw new ExceptionService("Digite um número válido");
-		
-		AlbumRepository ar = new AlbumRepository();
-		
-		if(!ar.getAlbumById(lf.getIdAlbum())) {
-			throw new ExceptionService("Id de album inexistente");
-		}
 		
 		lfr.saveLF(lf);
 	}
@@ -36,7 +27,7 @@ public class LittleFigureService {
 		lfr.getLFById(id);
 	}
 	
-	public void getAllAlbums() {
+	public void getAllLittleFigures() {
 		lfr.getAllLittleFigures();
 	}
 	

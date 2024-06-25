@@ -1,45 +1,85 @@
 package principal;
 
-import java.time.LocalDate;
-
 import entities.Administrator;
+import entities.Album;
+import entities.Author;
+import entities.Collectionator;
 import entities.LittleFigure;
-import entities.User;
 import enums.Role;
 import repositories.LittleFigureRepository;
-import repositories.UserRepository;
+import services.AdminService;
+import services.AlbumService;
+import services.AuthorService;
+import services.CollectionatorService;
+import services.LittleFigureService;
+import repositories.AdminRepository;
+import repositories.AlbumRepository;
+import repositories.AuthorRepository;
+import repositories.CollectionatorRepository;
 
 public class Main {
 	public static void main(String[] args) {
-		LittleFigure lFigure = new LittleFigure(6, "Paulo");
-		LittleFigure lFigure2 = new LittleFigure(5, "Pedro");
-		LittleFigure lFigure3 = new LittleFigure(5, "Penis");
+		LittleFigure lFigure = new LittleFigure(1, "neymar", "tag", "foto", "descricao", 1, 1, 1, 2);
+		Author author = new Author(1, true, "Paulo", Role.AUTHOR, "a@b.com", "123", "");
+		Administrator adm = new Administrator(1, "PAULO", Role.ADM);
+		Album album = new Album(1, "Album", 1);
+		Collectionator col = new Collectionator(1, true, "paulo", Role.COLLECTIONATOR, "a@bb.com", "123", "");
 		
-		LittleFigureRepository lfRep = new LittleFigureRepository();
+		LittleFigureService lfs = new LittleFigureService();
+		AuthorService as = new AuthorService();
+		AdminService ads = new AdminService();
+		AlbumService als = new AlbumService();
+		CollectionatorService cs = new CollectionatorService();
 		
-//		lfRep.createTable();
-//		lfRep.saveLF(lFigure);
-//		lfRep.deleteLFById(1);
-//		lfRep.saveLF(lFigure3);
-//		lfRep.saveLF(lFigure2);
-//		lfRep.getLFById(2);
-//		lfRep.editLFById(2, lFigure3);
-//		lfRep.getLFById(5);
-//		lfRep.getLFById(6);
-//		lfRep.getAllLittleFigures();
+		LittleFigureRepository lfr = new LittleFigureRepository();
+		lfr.createTable();
 		
-		User c = new Administrator(2, "aa", true, Role.ADM, "email", "senha", LocalDate.now(), "aa", 2);
+		AuthorRepository ar = new AuthorRepository();
+		ar.createTable();
 		
-		UserRepository ur = new UserRepository();
-//		ur.createTable();
-//		ur.saveUser(c);
-		ur.getAllUsers();
-		ur.getAllUsers();
-		ur.getUserById(2);
-		ur.getUserById(2);
-		ur.getAllUsers();
+		AdminRepository adr = new AdminRepository();
+		adr.createTable();
 		
+		AlbumRepository alr = new AlbumRepository();
+		alr.createTable();
 		
+		CollectionatorRepository cr = new CollectionatorRepository();
+		cr.createTable();
+		
+		lfs.saveLF(lFigure);
+		as.saveAuthor(author);
+		ads.saveAdmin(adm);
+		als.saveAlbum(album);
+		cs.saveCollectionator(col);
+		
+		lfs.getAllLittleFigures();
+		as.getAllAuthors();
+		ads.getAdminById(1);
+		als.getAlbumById(1);
+		cs.getAllCollectionators();
+		
+		lFigure.setName("messi");
+		lFigure.setDescription("mior do mundo");
+		lFigure.setPhoto("foto do messi pelado");
+		
+		author.setName("autorzada Paulozada");
+		author.setEmail("dale@mail.com");
+		
+		adm.setName("guga");
+		
+		album.setName("album unico");
+		
+		col.setName("colecionadorzada Paulozada");
+		lfs.editLFById(1, lFigure);
+		as.editAuthorById(1, author);
+		ads.editAdminById(1, adm);
+		cs.editCollectionatorById(1, col);
+		
+		lfs.getAllLittleFigures();
+		as.getAllAuthors();
+		ads.getAdminById(1);
+		als.getAlbumById(1);
+		cs.getAllCollectionators();
 		
 		
 	}

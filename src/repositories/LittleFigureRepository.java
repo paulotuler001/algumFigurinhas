@@ -1,12 +1,10 @@
 package repositories;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Scanner;
 
 import configuration.SQLite;
 import entities.LittleFigure;
@@ -19,7 +17,14 @@ public class LittleFigureRepository {
 		
 		String sql = "CREATE TABLE IF NOT EXISTS lFigure(\n"
 				+ "id integer primary key,\n"
-				+ "nome TEXT NOT NULL\n"
+				+ "name TEXT NOT NULL,\n"
+				+ "tag TEXT NOT NULL,\n"
+				+ "photo TEXT NOT NULL,\n"
+				+ "description TEXT,\n"
+				+ "page TEXT NOT NULL,\n"
+				+ "number INTEGER NOT NULL,\n"
+				+ "ownerId INTEGER NOT NULL,\n"
+				+ "authorId INTEGER NOT NULL\n"
 				+ ");";
 		
 		try (Connection conn = SQLite.getConnection(); 
@@ -35,7 +40,7 @@ public class LittleFigureRepository {
 	
 	public void saveLF(LittleFigure lFigure) {
 		
-		String sql = "INSERT INTO lFigure(id, nome) VALUES(?, ?)";
+		String sql = "INSERT INTO lFigure(id, name, tag, photo, description, page, number, ownerId, authorId) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		try(
 		Connection conn = SQLite.getConnection();
@@ -43,6 +48,13 @@ public class LittleFigureRepository {
 		){
 		pstmt.setInt(1, lFigure.getId());
 		pstmt.setString(2, lFigure.getName());
+		pstmt.setString(3, lFigure.getTag());
+		pstmt.setString(4, lFigure.getPhoto());
+		pstmt.setString(5, lFigure.getDescription());
+		pstmt.setInt(6, lFigure.getPage());
+		pstmt.setInt(7, lFigure.getNumber());
+		pstmt.setInt(8, lFigure.getOwnerId());
+		pstmt.setInt(9, lFigure.getAuthorId());
 		pstmt.executeUpdate();
 		SQLite.closeConnection();
 		}catch(SQLException e) {System.out.println(e.getMessage());}
@@ -62,9 +74,16 @@ public class LittleFigureRepository {
 		ResultSet rs = pstmt.executeQuery();
 		if(rs.next()) {
 			int lfId = rs.getInt("id");
-			String name = rs.getString("nome");
+			String name = rs.getString("name");
+			String tag = rs.getString("tag");
+			String photo = rs.getString("photo");
+			String description = rs.getString("description");
+			Integer page = rs.getInt("page");
+			Integer number = rs.getInt("number");
+			Integer ownerId = rs.getInt("ownerId");
+			Integer authorId = rs.getInt("authorId");
 			
-			lf = new LittleFigure(lfId, name);	
+			lf = new LittleFigure(lfId, name, tag, photo, description, page, number, ownerId, authorId);	
 			this.toString(lf);
 		}
 		
@@ -90,10 +109,25 @@ public class LittleFigureRepository {
 		
 		while (rs.next()) {
             int id = rs.getInt("id");
-            String name = rs.getString("nome");
-            System.out.println("ID: " + id + ", Nome: " + name);
+            String name = rs.getString("name");
+            String tag = rs.getString("tag");
+			String photo = rs.getString("photo");
+			String description = rs.getString("description");
+			Integer page = rs.getInt("page");
+			Integer number = rs.getInt("number");
+			Integer ownerId = rs.getInt("ownerId");
+			Integer authorId = rs.getInt("authorId");
+			System.out.println("ID: " + id + 
+	                   ", Nome: " + name + 
+	                   ", Tag: " + tag + 
+	                   ", Foto: " + photo + 
+	                   ", Descrição: " + description + 
+	                   ", Página: " + page + 
+	                   ", Número: " + number + 
+	                   ", ID do Proprietário: " + ownerId + 
+	                   ", ID do Autor: " + authorId);
         }
-			
+		SQLite.closeConnection();
 		}catch(SQLException e) {
 			System.out.println(e.getMessage());
 		}
@@ -117,17 +151,24 @@ public class LittleFigureRepository {
 	
 	public void editLFById(Integer id, LittleFigure lFigure) {
 		
-		String sql = "UPDATE lFigure SET id = ?, nome = ? WHERE lFigure.id = ?";
+		String sql = "UPDATE lFigure SET id = ?, name = ?, tag = ?, photo = ?, description = ?, page = ?, number = ?, ownerId = ?, authorId = ? WHERE lFigure.id = ?";
 		
 		try(
 		Connection conn = SQLite.getConnection();
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		){
-		pstmt.setInt(1,  lFigure.getId());
-		pstmt.setString(2,  lFigure.getName());
-		pstmt.setInt(3,  id);
-		pstmt.executeQuery();
-		SQLite.closeConnection();
+			pstmt.setInt(1, lFigure.getId());
+			pstmt.setString(2, lFigure.getName());
+			pstmt.setString(3, lFigure.getTag());
+			pstmt.setString(4, lFigure.getPhoto());
+			pstmt.setString(5, lFigure.getDescription());
+			pstmt.setInt(6, lFigure.getPage());
+			pstmt.setInt(7, lFigure.getNumber());
+			pstmt.setInt(8, lFigure.getOwnerId());
+			pstmt.setInt(9, lFigure.getAuthorId());
+			pstmt.setInt(10,  id);
+			pstmt.executeQuery();
+			SQLite.closeConnection();
 		}catch(SQLException e) {System.out.println(e.getMessage());}
 	}
 	

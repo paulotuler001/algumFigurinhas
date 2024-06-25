@@ -7,20 +7,22 @@ public class LittleFigure {
 	String tag;
 	String photo;
 	String description;
-	String page;
-	Integer numberInAlbum;
-	Integer idAlbum;
+	Integer page;
+	Integer number;
+	Integer ownerId;
+	Integer authorId;
 
-	public LittleFigure(Integer id, String name) {
+	public LittleFigure(Integer id, String name, String tag, String photo, String description, Integer page, Integer number, Integer ownerId, Integer authorId) {
 		super();
 		this.id = id;
 		this.name = name;
-//		this.tag = tag;
-//		this.photo = photo;
-//		this.description = description;
-//		this.page = page;
-//		this.numberInAlbum = numberInAlbum;
-//		this.idAlbum = idAlbum;
+		this.tag = tag;
+		this.photo = photo;
+		this.description = description;
+		this.page = page;
+		this.number = number;
+		this.ownerId = ownerId;
+		this.authorId = authorId;
 	}
 
 	public Integer getId() {
@@ -63,28 +65,37 @@ public class LittleFigure {
 		this.description = description;
 	}
 
-	public String getPage() {
+	public Integer getPage() {
 		return page;
 	}
 
-	public void setPage(String page) {
+	public void setPage(Integer page) {
 		this.page = page;
 	}
 
-	public Integer getNumberInAlbum() {
-		return numberInAlbum;
+	public Integer getNumber() {
+		return number;
 	}
 
-	public void setNumberInAlbum(Integer numberInAlbum) {
-		this.numberInAlbum = numberInAlbum;
+	public void setNumber(Integer number) {
+		this.number = number;
 	}
 
-	public Integer getIdAlbum() {
-		return idAlbum;
+	public Integer getOwnerId() {
+		return ownerId;
 	}
 
-	public void setIdAlbum(Integer idAlbum) {
-		this.idAlbum = idAlbum;
+	public void setIdAlbum(Integer ownerId) {
+		this.ownerId = ownerId;
 	}
+
+	public Integer getAuthorId() {
+		return authorId;
+	}
+
+	public void setAuthorId(Integer authorId) {
+		this.authorId = authorId;
+	}
+	
 
 }

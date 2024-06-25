@@ -4,14 +4,12 @@ public class Album {
 	
 	private Integer id;
 	private String name;
-	private Integer authorId;
 	private Integer totalLFigures;
 	
-	public Album(Integer id, String name, Integer authorId, Integer totalLFigures) {
+	public Album(Integer id, String name, Integer totalLFigures) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.authorId = authorId;
 		this.totalLFigures = totalLFigures;
 	}
 	
@@ -26,12 +24,6 @@ public class Album {
 	}
 	public void setName(String name) {
 		this.name = name;
-	}
-	public Integer getAuthorId() {
-		return authorId;
-	}
-	public void setAuthorId(Integer authorId) {
-		this.authorId = authorId;
 	}
 	public Integer getTotalLFigures() {
 		return totalLFigures;

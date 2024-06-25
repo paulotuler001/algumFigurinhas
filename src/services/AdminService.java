@@ -1,56 +1,40 @@
 package services;
 
-import entities.User;
-import repositories.UserRepository;
+import entities.Administrator;
+import repositories.AdminRepository;
 
-public class UserService {
+public class AdminService {
 
-	UserRepository ur = new UserRepository();
+	AdminRepository adr = new AdminRepository();
 	
-	public void saveUser(User user) {
+	public void saveAdmin(Administrator adm) {
 		
-		if(user.getName().length() < 1) 
+		if(adm.getName().length() < 1) 
 			throw new ExceptionService("Digite um nome válido");
-		else if(user.getId() < 1 || user.getId() < 1)
+		else if(adm.getId() < 1 || adm.getId() < 1)
 			throw new ExceptionService("Digite um id válido");
 		
-		ur.saveUser(user);
+		adr.saveAdmin(adm);
 	}
 	
-	public void getUserById(Integer id) {
+	public void getAdminById(Integer id) {
 		
 		if(id < 1) 
 			throw new ExceptionService("Digite um id inteiro válido");
 		
-		ur.getUserById(id);
+		adr.getAdminById(id);
 	}
 	
-	public void getAllUsers() {
-		ur.getAllUsers();
-	}
-	
-	public void deleteUserById(Integer id) {
+	public void editAdminById(Integer id, Administrator adm) {
 		
-		if(id < 1) 
+		if(id < 1 || adm.getId() < 1) 
 			throw new ExceptionService("Digite um id inteiro válido");
-		else if(!ur.getUserById(id).getActive()) {
+		else if(!adr.getAdminById(id)) 
 			throw new ExceptionService("Usuário não encontrado");
-		}
-		
-		ur.deleteUserById(id);
-		
-	}
-	
-	public void editUserById(Integer id, User user) {
-		
-		if(id < 1 || user.getId() < 1) 
-			throw new ExceptionService("Digite um id inteiro válido");
-		else if(!ur.getUserById(id).getActive()) 
-			throw new ExceptionService("Usuário não encontrado");
-		else if(user.getName().length()<1) 
+		else if(adm.getName().length()<1) 
 			throw new ExceptionService("Digite um nome válido");
 		
-		ur.editUserById(id, user);
+		adr.editAdminById(id, adm);
 		
 	}
 	
