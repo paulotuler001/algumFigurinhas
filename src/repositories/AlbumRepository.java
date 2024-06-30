@@ -11,7 +11,7 @@ import entities.Album;
 
 public class AlbumRepository {
 	
-	public void createTable() {
+	public AlbumRepository() {
 
 		String sql = "CREATE TABLE IF NOT EXISTS album(\n" 
 		+ "id integer primary key,\n" 
@@ -24,6 +24,7 @@ public class AlbumRepository {
 			stmt.execute(sql);
 			SQLite.closeConnection();
 		} catch (SQLException e) {
+			SQLite.closeConnection();
 			System.out.println(e.getMessage());
 		}
 	}
@@ -39,6 +40,7 @@ public class AlbumRepository {
 			pstmt.executeUpdate();
 			SQLite.closeConnection();
 		} catch (SQLException e) {
+			SQLite.closeConnection();
 			System.out.println(e.getMessage());
 		}
 	}
@@ -64,6 +66,7 @@ public class AlbumRepository {
 			return album.getId() > 1 ;
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
+			SQLite.closeConnection();
 			return false ;
 		}
 	}

@@ -1,86 +1,75 @@
 package principal;
 
-import entities.Administrator;
 import entities.Album;
-import entities.Author;
-import entities.Collectionator;
 import entities.LittleFigure;
+import entities.User;
 import enums.Role;
-import repositories.LittleFigureRepository;
-import services.AdminService;
 import services.AlbumService;
-import services.AuthorService;
-import services.CollectionatorService;
 import services.LittleFigureService;
-import repositories.AdminRepository;
-import repositories.AlbumRepository;
-import repositories.AuthorRepository;
-import repositories.CollectionatorRepository;
+import services.LoginService;
+import services.UserService;
+import views.ViewLogin;
 
 public class Main {
 	public static void main(String[] args) {
-		LittleFigure lFigure = new LittleFigure(1, "neymar", "tag", "foto", "descricao", 1, 1, 1, 2);
-		Author author = new Author(1, true, "Paulo", Role.AUTHOR, "a@b.com", "123", "");
-		Administrator adm = new Administrator(1, "PAULO", Role.ADM);
+		LittleFigure lFigure = new LittleFigure(2, "neymar", "tag", "foto", "descricao", 1, 1, 1, 2);
+		User author = new User(1, true, "Paulo", Role.AUTHOR, "a@b.com", "123", "");
+		User adm = new User(2, null, "PAULO", Role.ADM, "a@bb.com", "123", "");
 		Album album = new Album(1, "Album", 1);
-		Collectionator col = new Collectionator(1, true, "paulo", Role.COLLECTIONATOR, "a@bb.com", "123", "");
+		User col = new User(3, true, "paulo", Role.COLLECTIONATOR, "a@bb.com", "123", "");
 		
 		LittleFigureService lfs = new LittleFigureService();
-		AuthorService as = new AuthorService();
-		AdminService ads = new AdminService();
+		UserService as = new UserService();
+		UserService ads = new UserService();
 		AlbumService als = new AlbumService();
-		CollectionatorService cs = new CollectionatorService();
+		UserService cs = new UserService();
 		
-		LittleFigureRepository lfr = new LittleFigureRepository();
-		lfr.createTable();
+//		lfs.saveLF(lFigure);
+//		as.save(author);
+//		ads.save(adm);
+//		als.saveAlbum(album);
+//		cs.save(col);
 		
-		AuthorRepository ar = new AuthorRepository();
-		ar.createTable();
+//		lfs.getAllLittleFigures();
+//		as.getAllUsers();
+//		ads.getUserById(1);
+//		als.getAlbumById(1);
+//		cs.getAllUsers();
 		
-		AdminRepository adr = new AdminRepository();
-		adr.createTable();
+//		lFigure.setName("messi");
+//		lFigure.setDescription("mior do mundo");
+//		lFigure.setPhoto("foto do messi pelado");
+//		
+//		author.setName("autorzada Paulozada");
+//		author.setEmail("dale@mail.com");
+//		
+		adm.setEmail("admin");
+		adm.setPassword("coxinha123");
+//		
 		
-		AlbumRepository alr = new AlbumRepository();
-		alr.createTable();
+//		album.setName("album unico");
+//		
+//		col.setName("colecionadorzada Paulozada");
+//		lfs.editLFById(2, lFigure);
+//		as.editUserById(1, author);
+		ads.editUserById(2, adm);
+//		cs.editUserById(3, col);
+//		
+//		lfs.getAllLittleFigures();
+//		as.getAllUsers();
+//		ads.getUserById(1);
+//		als.getAlbumById(1);
+		cs.getAllUsers();
 		
-		CollectionatorRepository cr = new CollectionatorRepository();
-		cr.createTable();
-		
-		lfs.saveLF(lFigure);
-		as.saveAuthor(author);
-		ads.saveAdmin(adm);
-		als.saveAlbum(album);
-		cs.saveCollectionator(col);
-		
-		lfs.getAllLittleFigures();
-		as.getAllAuthors();
-		ads.getAdminById(1);
-		als.getAlbumById(1);
-		cs.getAllCollectionators();
-		
-		lFigure.setName("messi");
-		lFigure.setDescription("mior do mundo");
-		lFigure.setPhoto("foto do messi pelado");
-		
-		author.setName("autorzada Paulozada");
-		author.setEmail("dale@mail.com");
-		
-		adm.setName("guga");
-		
-		album.setName("album unico");
-		
-		col.setName("colecionadorzada Paulozada");
-		lfs.editLFById(1, lFigure);
-		as.editAuthorById(1, author);
-		ads.editAdminById(1, adm);
-		cs.editCollectionatorById(1, col);
-		
-		lfs.getAllLittleFigures();
-		as.getAllAuthors();
-		ads.getAdminById(1);
-		als.getAlbumById(1);
-		cs.getAllCollectionators();
-		
+//		LoginService lr = new LoginService();
+//		
+//		String login = "a@bb.com";
+//		String password = "123";
+//		
+//		lr.login(login, password);
+//		
+		ViewLogin vl = new ViewLogin();
+		vl.setVisible(true);
 		
 	}
 }

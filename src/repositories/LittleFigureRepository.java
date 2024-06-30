@@ -13,7 +13,7 @@ public class LittleFigureRepository {
 
 	LittleFigure lFigure;
 
-	public void createTable() {
+	public LittleFigureRepository() {
 		
 		String sql = "CREATE TABLE IF NOT EXISTS lFigure(\n"
 				+ "id integer primary key,\n"
@@ -34,6 +34,7 @@ public class LittleFigureRepository {
 			stmt.execute(sql);
 			SQLite.closeConnection();
 		} catch (SQLException e) {
+			SQLite.closeConnection();
 			System.out.println(e.getMessage());
 		}
 	}
@@ -57,7 +58,10 @@ public class LittleFigureRepository {
 		pstmt.setInt(9, lFigure.getAuthorId());
 		pstmt.executeUpdate();
 		SQLite.closeConnection();
-		}catch(SQLException e) {System.out.println(e.getMessage());}
+		}catch(SQLException e) {
+			System.out.println(e.getMessage());
+			SQLite.closeConnection();
+		}
 	}
 
 	public Boolean getLFById(Integer id) {
@@ -89,9 +93,10 @@ public class LittleFigureRepository {
 		
 		SQLite.closeConnection();
 		
-		return lf.getId() > 0;
+		return lf != null;
 		}catch(SQLException e) {
 			System.out.println(e.getMessage());
+			SQLite.closeConnection();
 			return false;
 		}
 	}
@@ -129,6 +134,7 @@ public class LittleFigureRepository {
         }
 		SQLite.closeConnection();
 		}catch(SQLException e) {
+			SQLite.closeConnection();
 			System.out.println(e.getMessage());
 		}
 		
@@ -144,9 +150,12 @@ public class LittleFigureRepository {
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		){
 		pstmt.setInt(1,  id);
-		pstmt.executeQuery();
+		pstmt.executeUpdate();
 		SQLite.closeConnection();
-		}catch(SQLException e) {System.out.println(e.getMessage());}
+		}catch(SQLException e) {
+			System.out.println(e.getMessage());
+			SQLite.closeConnection();
+		}
 	}
 	
 	public void editLFById(Integer id, LittleFigure lFigure) {
@@ -167,9 +176,12 @@ public class LittleFigureRepository {
 			pstmt.setInt(8, lFigure.getOwnerId());
 			pstmt.setInt(9, lFigure.getAuthorId());
 			pstmt.setInt(10,  id);
-			pstmt.executeQuery();
+			pstmt.executeUpdate();
 			SQLite.closeConnection();
-		}catch(SQLException e) {System.out.println(e.getMessage());}
+		}catch(SQLException e) {
+			System.out.println(e.getMessage());
+			SQLite.closeConnection();
+		}
 	}
 	
 	public void toString(LittleFigure lFigure) {

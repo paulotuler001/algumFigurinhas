@@ -44,7 +44,7 @@ public class LittleFigureService {
 	
 	public void editLFById(Integer id, LittleFigure lf) {
 		
-		if(id < 1 || lf.getId() < 1) 
+		if(id < 1) 
 			throw new ExceptionService("Digite um id inteiro válido");
 		else if(!lfr.getLFById(id)) 
 			throw new ExceptionService("Figurinha não encontrada");
