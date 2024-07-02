@@ -6,7 +6,7 @@ import javax.swing.*;
 
 public class ViewAdmin extends JFrame{
 	public ViewAdmin() {
-		setTitle("User Frame");
+		setTitle("User Frame Manager");
 		 setSize(new Dimension(800, 600));
 		 setDefaultCloseOperation(EXIT_ON_CLOSE);
 		 setLocationRelativeTo(null);
@@ -36,6 +36,8 @@ public class ViewAdmin extends JFrame{
 		 upBarContainer.add(filterUserBtn);
 
 		 add(upBarContainer);
+		 
+		 
 
 		 
 		 
