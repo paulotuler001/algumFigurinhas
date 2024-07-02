@@ -13,7 +13,7 @@ public class ViewUser extends JFrame{
 //		 setResizable(false);
 		 
 			int xx = this.getHeight()/3;
-			int yy = this.getWidth()/3;
+			int yy = this.getWidth()/5;
 		 
 		JLabel loginLabel = new JLabel("Login");
 	    loginLabel.setBackground(Color.WHITE);
@@ -25,7 +25,7 @@ public class ViewUser extends JFrame{
 		JPasswordField passwordField = new JPasswordField(15);
 		passwordField.setBackground(Color.WHITE);
 		
-	    String[] profile = {"Author", "Collector", "Adiministrator"};
+	    String[] profile = {"Author", "Collector", "Administrator"};
 		JLabel profileLabel = new JLabel("Perfil");
 		profileLabel.setBackground(Color.WHITE);
 		JComboBox <String> dropdown = new JComboBox<>(profile);
@@ -45,8 +45,6 @@ public class ViewUser extends JFrame{
 		 cancelBtn.setFocusable(false);
 		 cancelBtn.setBackground(Color.white);
 
-		
-		 
 		 JPanel panel = new JPanel();
 		 panel.add(loginLabel);	
 		 panel.add(loginField);	
@@ -58,11 +56,6 @@ public class ViewUser extends JFrame{
 		 panel.add(cancelBtn);
 
 		 add(panel);
-		 
-		 
-
-		 
-		 
 	}
 	
 	public static void main(String args[]) {
