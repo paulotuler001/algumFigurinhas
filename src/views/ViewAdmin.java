@@ -29,6 +29,7 @@ public class ViewAdmin extends JFrame{
 		
 		 
 		 JPanel upBarContainer = new JPanel();
+		 upBarContainer.setBackground(new Color(13, 62, 16));
 		 upBarContainer.add(addUserBtn);
 		 upBarContainer.add(removeUserBtn);
 		 upBarContainer.add(editUserBtn);

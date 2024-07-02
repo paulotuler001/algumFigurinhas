@@ -24,18 +24,24 @@ public class ViewLogin extends JFrame{
 		int yy = this.getWidth()/3;
 		
 		JLabel usernameLabel = new JLabel("Username:");
-		usernameLabel.setBackground(Color.WHITE);
+		usernameLabel.setForeground(Color.WHITE);
 		JTextField usernameField = new JTextField(15);
 		usernameField.setBackground(Color.WHITE);
 		
 		JLabel passwordLabel = new JLabel("Password:");
-		passwordLabel.setBackground(Color.WHITE);
+		passwordLabel.setForeground(Color.WHITE);
 		JPasswordField passwordField = new JPasswordField(15);
 		passwordField.setBackground(Color.WHITE);
+		
 		JButton loginButton = new JButton("Login");
 		loginButton.setFocusable(false);
+		loginButton.setBackground(Color.WHITE);
+		loginButton.setForeground(Color.black);
+		
 		JButton cancelButton = new JButton("Leave");
 		cancelButton.setFocusable(false);
+		cancelButton.setBackground(Color.WHITE);
+		cancelButton.setForeground(Color.black);
 		cancelButton.addActionListener(e -> dispose());
 		
 		usernameLabel.setBounds(yy, xx, 165, 25);
@@ -48,7 +54,7 @@ public class ViewLogin extends JFrame{
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.WHITE);
 		panel.setLayout(null);
-		
+		panel.setBackground(new Color(13, 62, 16));
 		panel.add(usernameLabel);
 		panel.add(usernameField);
 		panel.add(passwordLabel);
