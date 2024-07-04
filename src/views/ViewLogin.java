@@ -7,7 +7,6 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 import entities.User;
-import repositories.LoginRepository;
 import services.LoginService;
 
 public class ViewLogin extends JFrame{

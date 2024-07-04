@@ -12,11 +12,12 @@ import views.ViewLogin;
 
 public class Main {
 	public static void main(String[] args) {
-		LittleFigure lFigure = new LittleFigure(2, "neymar", "tag", "foto", "descricao", 1, 1, 1, 2);
-		User author = new User(1, true, "Paulo", Role.AUTHOR, "a@b.com", "123", "");
-		User adm = new User(2, null, "PAULO", Role.ADM, "a@bb.com", "123", "");
-		Album album = new Album(1, "Album", 1);
-		User col = new User(3, true, "paulo", Role.COLLECTIONATOR, "a@bb.com", "123", "");
+//		LittleFigure lFigure = new LittleFigure(2, "neymar", "tag", "foto", "descricao", 1, 1, 1, 2);
+//		Album album = new Album(1, "Album", 1);
+
+		User author = new User(10, true, "Zap", Role.AUTHOR, "a@o.com", "123");
+		User adm = new User(11, null, "Zed", Role.ADM, "a@oo.com", "123");
+		User col = new User(99, true, "Zip", Role.COLLECTIONATOR, "a@ooo.com", "123");
 		
 		LittleFigureService lfs = new LittleFigureService();
 		UserService as = new UserService();
@@ -25,10 +26,10 @@ public class Main {
 		UserService cs = new UserService();
 		
 //		lfs.saveLF(lFigure);
-//		as.save(author);
-//		ads.save(adm);
 //		als.saveAlbum(album);
-//		cs.save(col);
+		as.save(author);
+		ads.save(adm);
+		cs.save(col);
 		
 //		lfs.getAllLittleFigures();
 //		as.getAllUsers();
@@ -43,8 +44,8 @@ public class Main {
 //		author.setName("autorzada Paulozada");
 //		author.setEmail("dale@mail.com");
 //		
-		adm.setEmail("admin");
-		adm.setPassword("coxinha123");
+//		adm.setEmail("admin");
+//		adm.setPassword("coxinha123");
 //		
 		
 //		album.setName("album unico");
@@ -52,14 +53,14 @@ public class Main {
 //		col.setName("colecionadorzada Paulozada");
 //		lfs.editLFById(2, lFigure);
 //		as.editUserById(1, author);
-		ads.editUserById(2, adm);
+//		ads.editUserById(2, adm);
 //		cs.editUserById(3, col);
 //		
 //		lfs.getAllLittleFigures();
 //		as.getAllUsers();
 //		ads.getUserById(1);
 //		als.getAlbumById(1);
-		cs.getAllUsers();
+//		cs.getAllUsers();
 		
 //		LoginService lr = new LoginService();
 //		
@@ -68,8 +69,8 @@ public class Main {
 //		
 //		lr.login(login, password);
 //		
-		ViewLogin vl = new ViewLogin();
-		vl.setVisible(true);
+//		ViewLogin vl = new ViewLogin();
+//		vl.setVisible(true);
 		
 	}
 }

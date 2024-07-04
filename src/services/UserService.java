@@ -9,6 +9,9 @@ public class UserService {
 	
 	public void save(User user) {
 
+		
+		System.out.println(user.getId());
+		
 		if (user.getName().length() < 1)
 			throw new ExceptionService("Digite um nome válido");
 		else if (user.getId() < 1)
@@ -17,23 +20,23 @@ public class UserService {
 		ur.save(user);
 	}
 
-	public void getUserById(Integer id) {
+	public User getUserById(Integer id) {
 
 		if (id < 1)
 			throw new ExceptionService("Digite um id inteiro válido");
 
-		ur.getUserById(id);
+		return ur.getUserById(id);
 	}
 
-	public void getAllUsers() {
-		ur.getAllUsers();
+	public Object[][] getAllUsers() {
+		return ur.getAllUsers();
 	}
 
 	public void deleteUserById(Integer id) {
 
 		if (id < 1)
 			throw new ExceptionService("Digite um id inteiro válido");
-		else if (!ur.getUserById(id))
+		else if (!ur.getUserById(id).getActive())
 			throw new ExceptionService("Usuário não encontrado");
 
 		ur.deleteUserById(id);
@@ -44,7 +47,7 @@ public class UserService {
 
 		if (id < 1 || user.getId() < 1)
 			throw new ExceptionService("Digite um id inteiro válido");
-		else if (!ur.getUserById(id))
+		else if (!ur.getUserById(id).getActive())
 			throw new ExceptionService("Author não encontrado");
 		else if (user.getName().length() < 1)
 			throw new ExceptionService("Digite um nome válido");

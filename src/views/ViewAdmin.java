@@ -1,53 +1,159 @@
 package views;
-import java.awt.*;
-import javax.swing.*;
 
-public class ViewAdmin extends JFrame{
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
+import javax.swing.plaf.ScrollBarUI;
+import javax.swing.table.DefaultTableModel;
+
+import entities.User;
+import services.UserService;
+
+public class ViewAdmin extends JFrame {
 	public ViewAdmin() {
 		setTitle("User Frame Manager");
 		setSize(new Dimension(800, 600));
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 //		 setResizable(false);
-
-		int xx = this.getHeight() / 3;
-		int yy = this.getWidth() / 3;
-		
-        JButton addFigureBtn = new JButton("+");
-		 addFigureBtn.setFocusable(false);
-		 addFigureBtn.setBackground(Color.white);
-		 JButton removeFigureBtn = new JButton("-");
-		 removeFigureBtn.setFocusable(false);
-		 removeFigureBtn.setBackground(Color.white);
-		 JButton editFigureBtn = new JButton("E");
-		 editFigureBtn.setFocusable(false);
-		 editFigureBtn.setBackground(Color.white);
-		 JButton filterFigureBtn = new JButton("F");
-		 filterFigureBtn.setFocusable(false);
-		 filterFigureBtn.setBackground(Color.white);
-		 JTextField filterFigureField = new JTextField(15);
-		
-			
-		addFigureBtn.setBounds(yy - 100, xx  - 90, 50, 25);
-		removeFigureBtn.setBounds(yy - 45, xx  - 90, 50, 25);
-		editFigureBtn.setBounds(yy + 10, xx - 90, 50, 25);
-		filterFigureField.setBounds(yy + 90, xx - 90, 228, 25);
-		filterFigureBtn.setBounds(yy + 320, xx - 90, 50, 25);
+		setLayout(new BorderLayout());
 		
 
+		int yy = 60;
+		int xx = 167;
+		
+		JButton addUserBtn = new JButton("+");
+		addUserBtn.setFocusable(false);
+		addUserBtn.setBackground(Color.white);
+		JButton removeUserBtn = new JButton("-");
+		removeUserBtn.setFocusable(false);
+		removeUserBtn.setBackground(Color.white);
+		JButton editUserBtn = new JButton("E");
+		editUserBtn.setFocusable(false);
+		editUserBtn.setBackground(Color.white);
+		JButton filterUserBtn = new JButton("F");
+		filterUserBtn.setFocusable(false);
+		filterUserBtn.setBackground(Color.white);
 
-		JPanel panel = new JPanel();
-		panel.setLayout(null);
-		panel.setBackground(new Color(13, 62, 16));
-		panel.add(addFigureBtn);
-		panel.add(removeFigureBtn);
-		panel.add(editFigureBtn);
-		panel.add(filterFigureField);
-		panel.add(filterFigureBtn);
+		JTextField filterField = new JTextField(15);
+		
+		
+		JPanel query = new JPanel();
 
-		add(panel);
+		String[] colunas = { "Nome", "Perfil" };
+		UserService us = new UserService();
+		
+		DefaultTableModel model = new DefaultTableModel(us.getAllUsers(), colunas);
+		JTable tabela = new JTable(model);
+		JScrollPane scrollPane = new JScrollPane(tabela);
+		scrollPane.getViewport().setBackground(new Color(13, 62, 16));
+		scrollPane.setBorder(new EmptyBorder(0, 0, 0, 0));
+		tabela.setBackground(Color.yellow);
+		tabela.getTableHeader().setBackground(Color.WHITE);
+		tabela.getTableHeader().setFont(new Font("Arial", Font.BOLD, 16));
+		tabela.getTableHeader().setForeground(Color.RED);
+		
+		removeUserBtn.addActionListener(new ActionListener() {
+            
+            public void actionPerformed(ActionEvent e) {
+                int selectedRow = (int) tabela.getValueAt(tabela.getSelectedRow(), 0);
+                
+                if (selectedRow != -1) {
+                	System.out.println(selectedRow);
+                    us.deleteUserById(selectedRow);
+//                    tabela.remove(tabela.getSelectedRow());
+                    model.removeRow(tabela.getSelectedRow());
+                } else {
+                    JOptionPane.showMessageDialog(null, "Selecione um usuário para apagar.");
+                }
+            }
+        });
+		editUserBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				// 0 é author, 1 collector, 2 adm
+                int selectedRow = (int) tabela.getValueAt(tabela.getSelectedRow(), 0);
+				
+				User user = us.getUserById(selectedRow);
+				
+				System.out.println(user.getRole().toString());
+				ViewUser vu = new ViewUser(user.getId(),user.getEmail(), user.getPassword(), user.getRole().toString().equals("AUTHOR")? 0 : user.getRole().toString().equals("COLLECTIONATOR") ? 1 : 2 );
+				vu.setVisible(true);
+				
+			}
+		});
+		JFrame selFrame = this; 
+		addUserBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ViewUser vu = new ViewUser(1,"", "", 0);
+				vu.openDialog(selFrame);
+				dispose();
+				ViewAdmin adminRefreshed = new ViewAdmin();
+				adminRefreshed.setVisible(true);
+			}
+		});
+		
+		filterField.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//TODO filter
+				
+//				String searchText = filterField.getText().toLowerCase();
+//				Stream<Object[]> filteredUsers = Arrays.stream(us.getAllUsers())
+//						.filter(user -> user[1].toString().toLowerCase().contains(searchText))
+//						.map(user -> new Object[]{user[0], user[1]});
+//				List<Object[]> filteredUserss = new ArrayList<>();
+			}
+		});
+		
+		
+//		scrollPane.getVerticalScrollBar().setUI();
+		scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
+//		scrollPane.getVerticalScrollBar().set
+//		Border borda = new Border();
+//		scrollPane.setBorder(new RoundedBorder(10));
+
+		addUserBtn.setBounds(xx, yy, 35, 35);
+		removeUserBtn.setBounds(xx+38,yy, 35, 35);
+		editUserBtn.setBounds(xx+76, yy, 35, 35);
+		filterField.setBounds(xx+130, yy,280, 35);
+		filterUserBtn.setBounds(xx+415, yy, 35, 35);
+		
+		addUserBtn.setMargin(new Insets(2,2,2,2));
+		removeUserBtn.setMargin(new Insets(2,2,2,2));
+		editUserBtn.setMargin(new Insets(2,2,2,2));
+		filterUserBtn.setMargin(new Insets(2,2,2,2));
+		
+		
+//		query.setLayout(null);
+		query.add(scrollPane);
+		query.setBorder(null);
+		query.setBackground(new Color(13, 62, 16));
+
+		JPanel upBarContainer = new JPanel();
+		upBarContainer.setLayout(null);
+		upBarContainer.setPreferredSize(new Dimension(100,100));
+		upBarContainer.setBackground(new Color(13, 62, 16));
+		upBarContainer.add(addUserBtn);
+		upBarContainer.add(removeUserBtn);
+		upBarContainer.add(editUserBtn);
+		upBarContainer.add(filterField);
+		upBarContainer.add(filterUserBtn);
+		
+		
+		add(upBarContainer, BorderLayout.NORTH);
+		add(query, BorderLayout.CENTER);
+//		add(spacer);
+
 	}
-	
+
 	public static void main(String args[]) {
 		ViewAdmin va = new ViewAdmin();
 		va.setVisible(true);
@@ -55,4 +161,3 @@ public class ViewAdmin extends JFrame{
 	}
 
 }
-
