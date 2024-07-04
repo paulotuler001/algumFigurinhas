@@ -76,16 +76,12 @@ public class ViewNewFigure extends JFrame {
 		tagLabel.setBounds(yy - 100, xx - 90, 100, 25);
 		codImage.setBounds(yy - 40, xx - 90, 150, 25);
 		btnSelecionar.setBounds(yy + 110, xx - 90, 45, 25);
-		
 		nameLabel.setBounds(yy - 100, xx  - 45, 100, 25);
 		nameField.setBounds(yy - 40, xx - 45, 200, 25);
-		
 		pageLabel.setBounds(yy - 100, xx, 185, 25);
 		pageField.setBounds(yy - 40, xx,  75, 25);
-		
 		numberLabel.setBounds(yy - 100, xx + 45, 100, 25);
 		numberField.setBounds(yy - 40, xx + 45, 90, 25);
-		
 		addBtn.setBounds(yy - 50, xx + 155, 100, 25);
 		returnBtn.setBounds(yy + 150, xx + 155, 100, 25);
 		
