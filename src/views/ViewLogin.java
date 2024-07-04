@@ -23,33 +23,33 @@ public class ViewLogin extends JFrame{
 		int xx = this.getHeight()/3;
 		int yy = this.getWidth()/3;
 		
-		JLabel usernameLabel = new JLabel("Username:");
+		JLabel usernameLabel = new JLabel("Login");
 		usernameLabel.setForeground(Color.WHITE);
 		JTextField usernameField = new JTextField(15);
 		usernameField.setBackground(Color.WHITE);
 		
-		JLabel passwordLabel = new JLabel("Password:");
+		JLabel passwordLabel = new JLabel("Senha:");
 		passwordLabel.setForeground(Color.WHITE);
 		JPasswordField passwordField = new JPasswordField(15);
 		passwordField.setBackground(Color.WHITE);
 		
-		JButton loginButton = new JButton("Login");
+		JButton loginButton = new JButton("Ok");
 		loginButton.setFocusable(false);
 		loginButton.setBackground(Color.WHITE);
 		loginButton.setForeground(Color.black);
 		
-		JButton cancelButton = new JButton("Leave");
+		JButton cancelButton = new JButton("Sair");
 		cancelButton.setFocusable(false);
 		cancelButton.setBackground(Color.WHITE);
 		cancelButton.setForeground(Color.black);
 		cancelButton.addActionListener(e -> dispose());
 		
 		usernameLabel.setBounds(yy, xx, 165, 25);
-		usernameField.setBounds(yy+100, xx, 165, 25);
-		passwordLabel.setBounds(yy, xx+30, 165, 25);
-		passwordField.setBounds(yy+100, xx+30, 165, 25);
-		loginButton.setBounds(yy+25, xx+90, 80, 25);
-		cancelButton.setBounds(yy+125, xx+90, 80, 25);
+		usernameField.setBounds(yy + 60, xx, 165, 25);
+		passwordLabel.setBounds(yy, xx + 30, 165, 25);
+		passwordField.setBounds(yy + 60, xx + 30, 165, 25);
+		loginButton.setBounds(yy + 25, xx + 90, 80, 25);
+		cancelButton.setBounds(yy + 140, xx + 90, 80, 25);
 
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.WHITE);

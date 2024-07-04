@@ -31,8 +31,7 @@ public class ViewAuthor extends JFrame {
 		
 		JLabel coverLabel = new JLabel("Capa");
 		coverLabel.setForeground(Color.WHITE);
-		JTextField coverField = new JTextField(15);
-		coverField.setBackground(Color.WHITE);
+
 		
 		JTextField campoArquivo = new JTextField(30);
 		campoArquivo.setEditable(false);
@@ -57,32 +56,40 @@ public class ViewAuthor extends JFrame {
             }
         });
 		
+        JButton addFigureBtn = new JButton("+");
+		 addFigureBtn.setFocusable(false);
+		 addFigureBtn.setBackground(Color.white);
+		 JButton removeFigureBtn = new JButton("-");
+		 removeFigureBtn.setFocusable(false);
+		 removeFigureBtn.setBackground(Color.white);
+		 JButton editFigureBtn = new JButton("E");
+		 editFigureBtn.setFocusable(false);
+		 editFigureBtn.setBackground(Color.white);
+		 JButton filterFigureBtn = new JButton("F");
+		 filterFigureBtn.setFocusable(false);
+		 filterFigureBtn.setBackground(Color.white);
+		 JButton removeFigureAllBtn = new JButton("L");
+		 removeFigureAllBtn.setFocusable(false);
+		 removeFigureAllBtn.setBackground(Color.white);
+		 JTextField filterFigureField = new JTextField(15);
 		
-		JLabel profileLabel = new JLabel("Perfil");
-		profileLabel.setForeground(Color.WHITE);
+		
 
+		nameLabel.setBounds(yy - 100, xx  - 90, 185, 25);
+		nameField.setBounds(yy - 50, xx - 90, 415, 25);
+		pageLabel.setBounds(yy - 100, xx - 50, 185, 25);
+		pageField.setBounds(yy - 50, xx - 50, 75, 25);
+		coverLabel.setBounds(yy + 50, xx - 50, 65, 25);
+		campoArquivo.setBounds(yy + 90, xx - 50, 230, 25);
+		btnSelecionar.setBounds(yy + 320, xx - 50, 45, 25);
+		addFigureBtn.setBounds(yy - 90, xx + 20, 50, 25);
+		removeFigureBtn.setBounds(yy - 35, xx + 20, 50, 25);
+		editFigureBtn.setBounds(yy + 20, xx + 20, 50, 25);
+		filterFigureField.setBounds(yy + 90, xx + 20, 168, 25);
+		filterFigureBtn.setBounds(yy + 260, xx + 20, 50, 25);
+		removeFigureAllBtn.setBounds(yy + 315, xx + 20, 50, 25);
+		
 
-		nameLabel.setBounds(yy, xx, 165, 25);
-		nameField.setBounds(yy + 100, xx, 165, 25);
-		pageLabel.setBounds(yy, xx + 30, 165, 25);
-		pageField.setBounds(yy + 100, xx + 30, 165, 25);
-		coverLabel.setBounds(yy, xx + 60, 165, 25);
-		coverField.setBounds(yy + 100, xx + 30, 165, 25);
-		campoArquivo.setBounds(yy + 100, xx + 60, 145, 25);
-		btnSelecionar.setBounds(yy + 240, xx + 60, 25, 25);
-
-
-		JButton okayBtn = new JButton("Ok");
-		okayBtn.setFocusable(false);
-		okayBtn.setBackground(Color.WHITE);
-		okayBtn.setForeground(Color.black);
-		JButton cancelBtn = new JButton("Cancelar");
-		cancelBtn.setFocusable(false);
-		cancelBtn.setBackground(Color.WHITE);
-		cancelBtn.setForeground(Color.black);
-
-		okayBtn.setBounds(yy + 25, xx + 120, 100, 25);
-		cancelBtn.setBounds(yy + 145, xx + 120, 100, 25);
 
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
@@ -92,11 +99,14 @@ public class ViewAuthor extends JFrame {
 		panel.add(pageLabel);
 		panel.add(pageField);
 		panel.add(coverLabel);
-		panel.add(coverField);
 		panel.add(campoArquivo);
 		panel.add(btnSelecionar);
-		panel.add(okayBtn);
-		panel.add(cancelBtn);
+		panel.add(addFigureBtn);
+		panel.add(removeFigureBtn);
+		panel.add(editFigureBtn);
+		panel.add(filterFigureField);
+		panel.add(filterFigureBtn);
+		panel.add(removeFigureAllBtn);
 
 		add(panel);
 	}

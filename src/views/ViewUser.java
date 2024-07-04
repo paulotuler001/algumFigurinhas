@@ -33,11 +33,11 @@ public class ViewUser extends JFrame {
 		dropdown.setPreferredSize(new Dimension(150, dropdown.getPreferredSize().height));
 
 		loginLabel.setBounds(yy, xx, 165, 25);
-		loginField.setBounds(yy + 100, xx, 165, 25);
+		loginField.setBounds(yy + 60, xx, 190, 25);
 		passwordLabel.setBounds(yy, xx + 30, 165, 25);
-		passwordField.setBounds(yy + 100, xx + 30, 165, 25);
+		passwordField.setBounds(yy + 60, xx + 30, 190, 25);
 		profileLabel.setBounds(yy, xx + 60, 165, 25);
-		dropdown.setBounds(yy + 100, xx + 60, 165, 25);
+		dropdown.setBounds(yy + 60, xx + 60, 190, 25);
 
 		JButton okayBtn = new JButton("Ok");
 		okayBtn.setFocusable(false);
@@ -48,8 +48,8 @@ public class ViewUser extends JFrame {
 		cancelBtn.setBackground(Color.WHITE);
 		cancelBtn.setForeground(Color.black);
 
-		okayBtn.setBounds(yy + 25, xx + 120, 100, 25);
-		cancelBtn.setBounds(yy + 145, xx + 120, 100, 25);
+		okayBtn.setBounds(yy + 15, xx + 120, 100, 25);
+		cancelBtn.setBounds(yy + 155, xx + 120, 100, 25);
 
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
