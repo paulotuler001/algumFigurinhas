@@ -139,11 +139,9 @@ public class ViewFigureInfo extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 
 				LittleFigureService lfs = new LittleFigureService();
-				LittleFigure lf = new LittleFigure(1, "aaw", tagField.getText(),
+				LittleFigure lf = new LittleFigure(1, nameField.getText(), tagField.getText(),
 						convertFileToByteArray(arquivoSelecionado), descriptionField.getText(),
-						dropdown.getSelectedIndex(), 3, 0, 
-						1 //author.getId()
-						);
+						dropdown.getSelectedIndex(), 3, 0);
 				lfs.saveLF(lf);
 				JOptionPane.showMessageDialog(null, "Figurinha criada com sucesso"); 
 				dialog.dispose();

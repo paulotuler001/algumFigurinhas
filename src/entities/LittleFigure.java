@@ -10,9 +10,8 @@ public class LittleFigure {
 	Integer page;
 	Integer number;
 	Integer ownerId;
-	Integer authorId;
 
-	public LittleFigure(Integer id, String name, String tag, byte[] photo, String description, Integer page, Integer number, Integer ownerId, Integer authorId) {
+	public LittleFigure(Integer id, String name, String tag, byte[] photo, String description, Integer page, Integer number, Integer ownerId) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -22,7 +21,6 @@ public class LittleFigure {
 		this.page = page;
 		this.number = number;
 		this.ownerId = ownerId;
-		this.authorId = authorId;
 	}
 
 	public Integer getId() {
@@ -88,14 +86,4 @@ public class LittleFigure {
 	public void setIdAlbum(Integer ownerId) {
 		this.ownerId = ownerId;
 	}
-
-	public Integer getAuthorId() {
-		return authorId;
-	}
-
-	public void setAuthorId(Integer authorId) {
-		this.authorId = authorId;
-	}
-	
-
 }

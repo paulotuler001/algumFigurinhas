@@ -19,5 +19,6 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="libs/jbcrypt-0.4-javadoc.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

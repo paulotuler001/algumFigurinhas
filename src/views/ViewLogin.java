@@ -23,7 +23,7 @@ public class ViewLogin extends JFrame{
 		int xx = this.getHeight()/3;
 		int yy = this.getWidth()/3;
 		
-		String imagePath = "C:\\Users\\Public\\a\\6.jpg";
+		String imagePath = "images\\6.jpg";
         ImageIcon backgroundImageIcon = new ImageIcon(imagePath);
         Image backgroundImage = backgroundImageIcon.getImage();
 
@@ -88,9 +88,12 @@ public class ViewLogin extends JFrame{
                     if(user.getRole().equals(Role.ADM)){
                     	ViewAdmin va = new ViewAdmin();
 						va.setVisible(true);						
-					}else{
+					}else if(user.getRole().equals(Role.AUTHOR)){
 						ViewAuthor va = new ViewAuthor();
 						va.setVisible(true);	
+					}else {
+						ViewCollectionator vc = new ViewCollectionator();
+						vc.setVisible(true);
 					}
                     
                     

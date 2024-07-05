@@ -23,8 +23,7 @@ public class LittleFigureRepository {
 				+ "description TEXT,\n"
 				+ "page TEXT NOT NULL,\n"
 				+ "number INTEGER NOT NULL,\n"
-				+ "ownerId INTEGER NOT NULL,\n"
-				+ "authorId INTEGER NOT NULL\n"
+				+ "ownerId INTEGER NOT NULL\n"
 				+ ");";
 		
 		try (Connection conn = SQLite.getConnection(); 
@@ -41,7 +40,7 @@ public class LittleFigureRepository {
 	
 	public void saveLF(LittleFigure lFigure) {
 		
-		String sql = "INSERT INTO lFigure(id, name, tag, photo, description, page, number, ownerId, authorId) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO lFigure(id, name, tag, photo, description, page, number, ownerId) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		try(
 		Connection conn = SQLite.getConnection();
@@ -55,7 +54,6 @@ public class LittleFigureRepository {
 		pstmt.setInt(6, lFigure.getPage());
 		pstmt.setInt(7, lFigure.getNumber());
 		pstmt.setInt(8, lFigure.getOwnerId());
-		pstmt.setInt(9, lFigure.getAuthorId());
 		pstmt.executeUpdate();
 		SQLite.closeConnection();
 		}catch(SQLException e) {
@@ -85,9 +83,8 @@ public class LittleFigureRepository {
 			Integer page = rs.getInt("page");
 			Integer number = rs.getInt("number");
 			Integer ownerId = rs.getInt("ownerId");
-			Integer authorId = rs.getInt("authorId");
 			
-			lf = new LittleFigure(lfId, name, tag, photo, description, page, number, ownerId, authorId);	
+			lf = new LittleFigure(lfId, name, tag, photo, description, page, number, ownerId);	
 			this.toString(lf);
 		}
 		
@@ -151,7 +148,7 @@ public class LittleFigureRepository {
 	
 	public void editLFById(Integer id, LittleFigure lFigure) {
 		
-		String sql = "UPDATE lFigure SET id = ?, name = ?, tag = ?, photo = ?, description = ?, page = ?, number = ?, ownerId = ?, authorId = ? WHERE lFigure.id = ?";
+		String sql = "UPDATE lFigure SET id = ?, name = ?, tag = ?, photo = ?, description = ?, page = ?, number = ?, ownerId = ? WHERE lFigure.id = ?";
 		
 		try(
 		Connection conn = SQLite.getConnection();
@@ -165,8 +162,7 @@ public class LittleFigureRepository {
 			pstmt.setInt(6, lFigure.getPage());
 			pstmt.setInt(7, lFigure.getNumber());
 			pstmt.setInt(8, lFigure.getOwnerId());
-			pstmt.setInt(9, lFigure.getAuthorId());
-			pstmt.setInt(10,  id);
+			pstmt.setInt(9,  id);
 			pstmt.executeUpdate();
 			SQLite.closeConnection();
 		}catch(SQLException e) {
