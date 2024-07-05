@@ -20,6 +20,18 @@ public class ViewGetFigure extends JFrame {
 
 		int xx = this.getHeight() / 3;
 		int yy = this.getWidth() / 3;
+		
+		String imagePath = "C:\\Users\\Public\\a\\3.jfif";
+        ImageIcon backgroundImageIcon = new ImageIcon(imagePath);
+        Image backgroundImage = backgroundImageIcon.getImage();
+
+        JPanel panel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+            }
+        };
 
 		JLabel nameLabel = new JLabel("Nome");
 		nameLabel.setForeground(Color.WHITE);
@@ -95,10 +107,7 @@ public class ViewGetFigure extends JFrame {
 		returnBtn.setBounds(yy + 150, xx + 175, 100, 25);
 		
 
-
-		JPanel panel = new JPanel();
 		panel.setLayout(null);
-		panel.setBackground(new Color(13, 62, 16));
 		panel.add(tagLabel);
 		panel.add(codImage);
 		panel.add(btnSelecionar);

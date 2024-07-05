@@ -39,7 +39,7 @@ public class ViewUser extends JDialog {
 		int xx = 200;
 		int yy = xx+50;
 		
-		String imagePath = "C:\\Users\\Public\\a\\6.jpg";
+		String imagePath = "C:\\Users\\Public\\a\\3.jfif";
         ImageIcon backgroundImageIcon = new ImageIcon(imagePath);
         Image backgroundImage = backgroundImageIcon.getImage();
 

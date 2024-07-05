@@ -24,6 +24,18 @@ public class ViewAuthor extends JFrame {
 		int xx = this.getHeight() / 3;
 		int yy = this.getWidth() / 3;
 
+		String imagePath = "C:\\Users\\Public\\a\\3.jfif";
+        ImageIcon backgroundImageIcon = new ImageIcon(imagePath);
+        Image backgroundImage = backgroundImageIcon.getImage();
+
+        JPanel panel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+            }
+        };
+		
 		JLabel nameLabel = new JLabel("Nome");
 		nameLabel.setForeground(Color.WHITE);
 		JTextField nameField = new JTextField(15);
@@ -92,7 +104,7 @@ public class ViewAuthor extends JFrame {
 		JScrollPane scrollPane = new JScrollPane(tabela);
 		scrollPane.getViewport().setBackground(new Color(13, 62, 16));
 		scrollPane.setBorder(new EmptyBorder(0, 0, 0, 0));
-		tabela.setBackground(Color.yellow);
+		tabela.setBackground(new Color(162, 219, 118));
 		tabela.getTableHeader().setBackground(Color.WHITE);
 		tabela.getTableHeader().setFont(new Font("Arial", Font.BOLD, 16));
 		tabela.getTableHeader().setForeground(Color.RED);
@@ -143,9 +155,7 @@ public class ViewAuthor extends JFrame {
 		removeFigureAllBtn.setBounds(yy + 315, xx + 20, 50, 25);
 		scrollPane.setBounds(yy-110, xx+ 70 , 500,200);
 
-		JPanel panel = new JPanel();
 		panel.setLayout(null);
-		panel.setBackground(new Color(13, 62, 16));
 		panel.add(nameLabel);
 		panel.add(nameField);
 		panel.add(pageLabel);

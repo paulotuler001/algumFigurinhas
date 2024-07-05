@@ -30,7 +30,7 @@ public class ViewAdmin extends JFrame {
 		int yy = 60;
 		int xx = 167;
 		
-		String imagePath = "C:\\Users\\Public\\a\\6.jpg";
+		String imagePath = "C:\\Users\\Public\\a\\3.jfif";
         ImageIcon backgroundImageIcon = new ImageIcon(imagePath);
         Image backgroundImage = backgroundImageIcon.getImage();
         JPanel panel = new JPanel() {
@@ -67,7 +67,7 @@ public class ViewAdmin extends JFrame {
 		JScrollPane scrollPane = new JScrollPane(tabela);
 		scrollPane.getViewport().setBackground(new Color(13, 62, 16));
 		scrollPane.setBorder(new EmptyBorder(0, 0, 0, 0));
-		tabela.setBackground(Color.yellow);
+		tabela.setBackground(new Color(162, 219, 118));
 		tabela.getTableHeader().setBackground(Color.WHITE);
 		tabela.getTableHeader().setFont(new Font("Arial", Font.BOLD, 16));
 		tabela.getTableHeader().setForeground(Color.RED);

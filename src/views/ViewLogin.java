@@ -62,8 +62,6 @@ public class ViewLogin extends JFrame{
 		passwordField.setBounds(yy + 60, xx + 30, 165, 25);
 		loginButton.setBounds(yy + 25, xx + 90, 80, 25);
 		cancelButton.setBounds(yy + 140, xx + 90, 80, 25);
-
-		//JPanel panel = new JPanel();
 		panel.setBackground(Color.WHITE);
 		panel.setLayout(null);
 		panel.setPreferredSize(new Dimension(253,353));

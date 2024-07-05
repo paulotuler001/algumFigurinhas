@@ -40,6 +40,19 @@ public class ViewFigureInfo extends JDialog {
 		int xx = 200;
 		int yy = xx+50;
 
+		
+		String imagePath = "C:\\Users\\Public\\a\\3.jfif";
+        ImageIcon backgroundImageIcon = new ImageIcon(imagePath);
+        Image backgroundImage = backgroundImageIcon.getImage();
+
+        JPanel panel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+            }
+        };
+
 		JLabel nameLabel = new JLabel("Nome");
 		nameLabel.setForeground(Color.WHITE);
 		JTextField nameField = new JTextField(15);
@@ -151,9 +164,7 @@ public class ViewFigureInfo extends JDialog {
 		okayBtn.setBounds(yy - 50, xx + 175, 100, 25);
 		cancelBtn.setBounds(yy + 150, xx + 175, 100, 25);
 
-		JPanel panel = new JPanel();
 		panel.setLayout(null);
-		panel.setBackground(new Color(13, 62, 16));
 		panel.add(nameLabel);
 		panel.add(nameField);
 		panel.add(pageLabel);
@@ -215,13 +226,13 @@ public class ViewFigureInfo extends JDialog {
 		}
 	}
 
-//	public static void main(String args[]) {
-////		SwingUtilities.invokeLater(() -> {
-////			User user = null;
-////			ViewFigureInfo vf = new ViewFigureInfo(user);
-////			vf.setVisible(true);
-////		});
-//
-//	}
+	public static void main(String args[]) {
+		SwingUtilities.invokeLater(() -> {
+			User user = null;
+			ViewFigureInfo vf = new ViewFigureInfo(user);
+			vf.setVisible(true);
+		});
+
+	}
 
 }
