@@ -117,7 +117,6 @@ public class ViewUser extends JDialog {
 			}
 		});
 
-//		JPanel panel = new JPanel();
 		panel.setLayout(null);
 		panel.setBackground(new Color(13, 62, 16));
 		panel.add(loginLabel);

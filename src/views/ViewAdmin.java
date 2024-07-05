@@ -106,6 +106,10 @@ public class ViewAdmin extends JFrame {
 				
 			}
 		});
+			//	vu.setVisible(true);
+				//
+			//}
+		//});
 		addUserBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ViewUser vu = new ViewUser(1,"", "", 0);
