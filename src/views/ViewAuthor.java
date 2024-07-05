@@ -6,11 +6,16 @@ import java.awt.event.ActionListener;
 import java.io.File;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+
+import entities.User;
+import services.LittleFigureService;
 
 public class ViewAuthor extends JFrame {
 
 	public ViewAuthor() {
-		setTitle("Auhtor Frame");
+		setTitle("Author Frame");
 		setSize(new Dimension(800, 600));
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
@@ -73,8 +78,56 @@ public class ViewAuthor extends JFrame {
 		 removeFigureAllBtn.setBackground(Color.white);
 		 JTextField filterFigureField = new JTextField(15);
 		
+		LittleFigureService lfs = new LittleFigureService();
+		 
+		String[] columns = { "#", "Name", "Page"};
+		DefaultTableModel model = new DefaultTableModel(lfs.getAllLittleFigures(), columns);
+		JTable tabela = new JTable(model);
+		tabela.getColumnModel().getColumn(0).setPreferredWidth(10);
+		tabela.getColumnModel().getColumn(1).setPreferredWidth(300);
+		tabela.getColumnModel().getColumn(2).setPreferredWidth(10);
 		
+		
+		
+		JScrollPane scrollPane = new JScrollPane(tabela);
+		scrollPane.getViewport().setBackground(new Color(13, 62, 16));
+		scrollPane.setBorder(new EmptyBorder(0, 0, 0, 0));
+		tabela.setBackground(Color.yellow);
+		tabela.getTableHeader().setBackground(Color.WHITE);
+		tabela.getTableHeader().setFont(new Font("Arial", Font.BOLD, 16));
+		tabela.getTableHeader().setForeground(Color.RED);
+	    
+		removeFigureBtn.addActionListener(new ActionListener() {
+            
+            public void actionPerformed(ActionEvent e) {
+                int selectedRow = Integer.parseInt(tabela.getValueAt(tabela.getSelectedRow(), 0).toString());
+                System.out.println(selectedRow);
+                if (selectedRow != -1) {
+                	System.out.println(selectedRow);
+                    lfs.deleteLFById(selectedRow);
+                    model.removeRow(tabela.getSelectedRow());
+                } else {
+                    JOptionPane.showMessageDialog(null, "Selecione um usuário para apagar.");
+                }
+            }
+        });
+		JFrame selFrame = this; 
 
+		addFigureBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				User user = null;
+				ViewFigureInfo vfi = new ViewFigureInfo(user);
+				vfi.openDialog(selFrame);
+				dispose();
+				ViewAuthor authorRefreshed = new ViewAuthor();
+				authorRefreshed.setVisible(true);
+			}
+		});
+		
+		
+		
+		
+		
 		nameLabel.setBounds(yy - 100, xx  - 90, 185, 25);
 		nameField.setBounds(yy - 50, xx - 90, 415, 25);
 		pageLabel.setBounds(yy - 100, xx - 50, 185, 25);
@@ -88,8 +141,7 @@ public class ViewAuthor extends JFrame {
 		filterFigureField.setBounds(yy + 90, xx + 20, 168, 25);
 		filterFigureBtn.setBounds(yy + 260, xx + 20, 50, 25);
 		removeFigureAllBtn.setBounds(yy + 315, xx + 20, 50, 25);
-		
-
+		scrollPane.setBounds(yy-110, xx+ 70 , 500,200);
 
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
@@ -107,6 +159,7 @@ public class ViewAuthor extends JFrame {
 		panel.add(filterFigureField);
 		panel.add(filterFigureBtn);
 		panel.add(removeFigureAllBtn);
+		panel.add(scrollPane);
 
 		add(panel);
 	}

@@ -5,14 +5,14 @@ public class LittleFigure {
 	Integer id;
 	String name;
 	String tag;
-	String photo;
+	byte[] photo;
 	String description;
 	Integer page;
 	Integer number;
 	Integer ownerId;
 	Integer authorId;
 
-	public LittleFigure(Integer id, String name, String tag, String photo, String description, Integer page, Integer number, Integer ownerId, Integer authorId) {
+	public LittleFigure(Integer id, String name, String tag, byte[] photo, String description, Integer page, Integer number, Integer ownerId, Integer authorId) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -49,11 +49,11 @@ public class LittleFigure {
 		this.tag = tag;
 	}
 
-	public String getPhoto() {
+	public byte[] getPhoto() {
 		return photo;
 	}
 
-	public void setPhoto(String photo) {
+	public void setPhoto(byte[] photo) {
 		this.photo = photo;
 	}
 

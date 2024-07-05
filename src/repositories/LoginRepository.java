@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 import configuration.SQLite;
 import entities.User;
 import enums.Role;
@@ -35,12 +37,12 @@ public class LoginRepository {
 	
 	public User loginUser(String login, String password) {
 		User user = null;
-		String selectLogin = "select * " + "from user " + "where email = ? AND password = ?;";
+		String selectLogin = "select * from user where email = ?";
 		
 		try (Connection conn = SQLite.getConnection();
 			PreparedStatement pstmt = conn.prepareStatement(selectLogin);) {
 				pstmt.setString(1, login);
-				pstmt.setString(2, password);
+//				pstmt.setString(2, password);
 				ResultSet rs = pstmt.executeQuery();
 				if (rs.next()) {
 					Integer colId = rs.getInt("id");
@@ -48,6 +50,11 @@ public class LoginRepository {
 					String email = rs.getString("email");
 					String role = rs.getString("role");
 					String passwordd = rs.getString("password");
+					
+					if(!BCrypt.checkpw(password, passwordd)) {
+						throw new Error("Wrong Answer");
+					}
+					
 					if (role.equals("COLLECTIONATOR"))
 						user = new User(colId, true, name, Role.COLLECTIONATOR, email, passwordd);
 					else
@@ -56,6 +63,10 @@ public class LoginRepository {
 				SQLite.closeConnection();
 				return user;
 			} catch (SQLException e) {
+				System.out.println(e.getMessage());
+				SQLite.closeConnection();
+				return null;
+			}catch(Error e) {
 				System.out.println(e.getMessage());
 				SQLite.closeConnection();
 				return null;

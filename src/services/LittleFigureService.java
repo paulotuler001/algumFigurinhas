@@ -27,8 +27,8 @@ public class LittleFigureService {
 		lfr.getLFById(id);
 	}
 	
-	public void getAllLittleFigures() {
-		lfr.getAllLittleFigures();
+	public Object[][] getAllLittleFigures() {
+		return lfr.getAllLittleFigures();
 	}
 	
 	public void deleteLFById(Integer id) {

@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 import entities.User;
 import enums.Role;
 import repositories.UserRepository;
@@ -28,10 +30,9 @@ public class ViewUser extends JDialog {
 
 	public void openDialog(JFrame parentFrame) {
 		Boolean isCreate = login.equals(""); // se for true, é pra criar, se nao, pra editar
-		JDialog dialog = new JDialog(parentFrame, "AddUser", true);
+		JDialog dialog = new JDialog(parentFrame, "Add User", true);
 		dialog.setTitle("User Frame Login");
 		dialog.setSize(new Dimension(800, 600));
-//		setDefaultCloseOperation(1);
 		dialog.setLocationRelativeTo(null);
 //		 setResizable(false);
 
@@ -60,7 +61,7 @@ public class ViewUser extends JDialog {
 		JLabel passwordLabel = new JLabel("Senha");
 		passwordLabel.setForeground(Color.WHITE);
 		JPasswordField passwordField = new JPasswordField(15);
-		passwordField.setText(password);
+//		passwordField.setText();
 		passwordField.setBackground(Color.WHITE);
 
 		String[] profile = { "Author", "Collector", "Administrator" };
@@ -99,17 +100,17 @@ public class ViewUser extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				Role role = dropdown.getSelectedIndex() == 0 ? Role.AUTHOR
 						: dropdown.getSelectedIndex() == 1 ? Role.COLLECTIONATOR : Role.ADM;
-
+				char[] currentPassword = passwordField.getPassword();
 				if (isCreate) {
 					System.out.println("ta no lugar certo");
 					User user = new User(ur.getNewId(), true, loginField.getText(), role, loginField.getText(),
-							passwordField.getText());
+							BCrypt.hashpw(new String(currentPassword), BCrypt.gensalt()));
 					us.save(user);
 
 				} else {
 					User user = us.getUserById(id);
 					user.setEmail(loginField.getText());
-					user.setPassword(passwordField.getText());
+					user.setPassword(BCrypt.hashpw(new String(currentPassword), BCrypt.gensalt()));
 					user.setRole(role);
 					us.editUserById(user.getId(), user);
 				}

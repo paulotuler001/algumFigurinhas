@@ -80,7 +80,6 @@ public class ViewAdmin extends JFrame {
                 if (selectedRow != -1) {
                 	System.out.println(selectedRow);
                     us.deleteUserById(selectedRow);
-//                    tabela.remove(tabela.getSelectedRow());
                     model.removeRow(tabela.getSelectedRow());
                 } else {
                     JOptionPane.showMessageDialog(null, "Selecione um usuário para apagar.");
@@ -133,11 +132,7 @@ public class ViewAdmin extends JFrame {
 		});
 		
 		
-//		scrollPane.getVerticalScrollBar().setUI();
 		scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
-//		scrollPane.getVerticalScrollBar().set
-//		Border borda = new Border();
-//		scrollPane.setBorder(new RoundedBorder(10));
 
 		addUserBtn.setBounds(xx, yy, 35, 35);
 		removeUserBtn.setBounds(xx+38,yy, 35, 35);

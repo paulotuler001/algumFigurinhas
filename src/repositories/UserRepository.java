@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import org.mindrot.jbcrypt.*;
+
 import configuration.SQLite;
 import entities.User;
 import enums.Role;
@@ -31,14 +33,15 @@ public class UserRepository {
 	public void save(User user) {
 
 		String sql = "INSERT INTO user(id, active, name, role, email, password) VALUES(?, ?, ?, ?, ?, ?)";
-
+		
 		try (Connection conn = SQLite.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql);) {
 			pstmt.setInt(1, user.getId());
 			pstmt.setBoolean(2, true);
 			pstmt.setString(3, user.getName());
 			pstmt.setString(4, user.getRole().toString());
 			pstmt.setString(5, user.getEmail());
-			pstmt.setString(6, user.getPassword());
+			String bcryptedPassword = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
+			pstmt.setString(6, bcryptedPassword);
 			pstmt.executeUpdate();
 			System.out.println("salvo");
 			SQLite.closeConnection();
@@ -130,7 +133,8 @@ public class UserRepository {
 			pstmt.setString(3, user.getName());
 			pstmt.setString(4, user.getRole().toString());
 			pstmt.setString(5, user.getEmail());
-			pstmt.setString(6, user.getPassword());
+			String bcryptedPassword = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
+			pstmt.setString(6, bcryptedPassword);
 			pstmt.setInt(7, id);
 			pstmt.executeUpdate();
 			SQLite.closeConnection();
