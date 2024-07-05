@@ -22,7 +22,7 @@ public class LoginRepository {
 				if (rs.next()) {
 					int userId = rs.getInt("id");
 					String userName = rs.getString("name");
-					adm = new User(userId, true, userName, Role.ADM, "", "", "");
+					adm = new User(userId, true, userName, Role.ADM, "", "");
 				}
 				SQLite.closeConnection();
 				return adm;
@@ -35,7 +35,7 @@ public class LoginRepository {
 	
 	public User loginUser(String login, String password) {
 		User user = null;
-		String selectLogin = "select *\n" + "from user\n" + "where email = ? AND password = ?;";
+		String selectLogin = "select * " + "from user " + "where email = ? AND password = ?;";
 		
 		try (Connection conn = SQLite.getConnection();
 			PreparedStatement pstmt = conn.prepareStatement(selectLogin);) {
@@ -48,12 +48,10 @@ public class LoginRepository {
 					String email = rs.getString("email");
 					String role = rs.getString("role");
 					String passwordd = rs.getString("password");
-					String deleteDescription = rs.getString("deleteDescription");
 					if (role.equals("COLLECTIONATOR"))
-						user = new User(colId, true, name, Role.COLLECTIONATOR, email, passwordd, deleteDescription);
+						user = new User(colId, true, name, Role.COLLECTIONATOR, email, passwordd);
 					else
-						user = new User(colId, true, name, Role.AUTHOR, email, passwordd, deleteDescription);
-
+						user = new User(colId, true, name, Role.AUTHOR, email, passwordd);
 				}
 				SQLite.closeConnection();
 				return user;

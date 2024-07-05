@@ -1,34 +1,73 @@
 package views;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.*;
 
-public class ViewUser extends JFrame {
+import entities.User;
+import enums.Role;
+import repositories.UserRepository;
+import services.UserService;
 
-	public ViewUser() {
-		setTitle("User Frame Login");
-		setSize(new Dimension(800, 600));
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setLocationRelativeTo(null);
+public class ViewUser extends JDialog {
+
+	private Integer id;
+	private String login;
+	private String password;
+	private Integer userProfile;
+
+	public ViewUser(Integer id, String login, String password, Integer userProfile) {
+		this.id = id;
+		this.login = login;
+		this.password = password;
+		this.userProfile = userProfile;
+
+	}
+
+	public void openDialog(JFrame parentFrame) {
+		Boolean isCreate = login.equals(""); // se for true, é pra criar, se nao, pra editar
+		JDialog dialog = new JDialog(parentFrame, "AddUser", true);
+		dialog.setTitle("User Frame Login");
+		dialog.setSize(new Dimension(800, 600));
+//		setDefaultCloseOperation(1);
+		dialog.setLocationRelativeTo(null);
 //		 setResizable(false);
 
-		int xx = this.getHeight() / 3;
-		int yy = this.getWidth() / 3;
+		int xx = 200;
+		int yy = xx+50;
+		
+		String imagePath = "C:\\Users\\Public\\a\\6.jpg";
+        ImageIcon backgroundImageIcon = new ImageIcon(imagePath);
+        Image backgroundImage = backgroundImageIcon.getImage();
+
+        JPanel panel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+            }
+        };
+		
 
 		JLabel loginLabel = new JLabel("Login");
 		loginLabel.setForeground(Color.WHITE);
 		JTextField loginField = new JTextField(15);
+		loginField.setText(login);
 		loginField.setBackground(Color.WHITE);
 
 		JLabel passwordLabel = new JLabel("Senha");
 		passwordLabel.setForeground(Color.WHITE);
 		JPasswordField passwordField = new JPasswordField(15);
+		passwordField.setText(password);
 		passwordField.setBackground(Color.WHITE);
 
 		String[] profile = { "Author", "Collector", "Administrator" };
 		JLabel profileLabel = new JLabel("Perfil");
 		profileLabel.setForeground(Color.WHITE);
 		JComboBox<String> dropdown = new JComboBox<>(profile);
+		dropdown.setSelectedIndex(userProfile);
 		dropdown.setBackground(Color.WHITE);
 		dropdown.setPreferredSize(new Dimension(150, dropdown.getPreferredSize().height));
 
@@ -47,11 +86,38 @@ public class ViewUser extends JFrame {
 		cancelBtn.setFocusable(false);
 		cancelBtn.setBackground(Color.WHITE);
 		cancelBtn.setForeground(Color.black);
+		cancelBtn.addActionListener(e -> dialog.dispose());
 
 		okayBtn.setBounds(yy + 15, xx + 120, 100, 25);
 		cancelBtn.setBounds(yy + 155, xx + 120, 100, 25);
 
-		JPanel panel = new JPanel();
+		okayBtn.addActionListener(new ActionListener() {
+
+			UserService us = new UserService();
+			UserRepository ur = new UserRepository();
+
+			public void actionPerformed(ActionEvent e) {
+				Role role = dropdown.getSelectedIndex() == 0 ? Role.AUTHOR
+						: dropdown.getSelectedIndex() == 1 ? Role.COLLECTIONATOR : Role.ADM;
+
+				if (isCreate) {
+					System.out.println("ta no lugar certo");
+					User user = new User(ur.getNewId(), true, loginField.getText(), role, loginField.getText(),
+							passwordField.getText());
+					us.save(user);
+
+				} else {
+					User user = us.getUserById(id);
+					user.setEmail(loginField.getText());
+					user.setPassword(passwordField.getText());
+					user.setRole(role);
+					us.editUserById(user.getId(), user);
+				}
+				dialog.dispose();
+			}
+		});
+
+//		JPanel panel = new JPanel();
 		panel.setLayout(null);
 		panel.setBackground(new Color(13, 62, 16));
 		panel.add(loginLabel);
@@ -62,14 +128,13 @@ public class ViewUser extends JFrame {
 		panel.add(dropdown);
 		panel.add(okayBtn);
 		panel.add(cancelBtn);
-
-		add(panel);
+		
+		dialog.add(panel);
+		dialog.setVisible(true);
 	}
 
-	public static void main(String args[]) {
-		ViewUser vu = new ViewUser();
-		vu.setVisible(true);
-
-	}
-
+//	public static void main(String[] args) {
+//		ViewUser vu = new ViewUser("zap", "zep", 2);
+//		vu.setVisible(true);
+//	}
 }

@@ -4,11 +4,19 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.security.DigestInputStream;
+import java.security.MessageDigest;
 
 import javax.swing.*;
 
 public class ViewFigureInfo extends JFrame {
-
+	
+	private JLabel label;
+	private JLabel labelHash;
+	
 	public ViewFigureInfo() {
 		setTitle("Figure Info Frame");
 		setSize(new Dimension(800, 600));
@@ -31,10 +39,11 @@ public class ViewFigureInfo extends JFrame {
 		dropdown.setBackground(Color.WHITE);
 		dropdown.setPreferredSize(new Dimension(150, dropdown.getPreferredSize().height));
 		
-		JLabel coverLabel = new JLabel("Capa");
-		coverLabel.setForeground(Color.WHITE);
-
+		JTextField tagField = new JTextField(15);
+		tagField.setBackground(Color.WHITE);
 		
+		JLabel coverLabel = new JLabel("Figurinha");
+		coverLabel.setForeground(Color.WHITE);
 		JTextField campoArquivo = new JTextField(30);
 		campoArquivo.setEditable(false);
 		JButton btnSelecionar = new JButton("Selecionar Arquivo");
@@ -44,24 +53,43 @@ public class ViewFigureInfo extends JFrame {
             	JFileChooser fileChooser = new JFileChooser();
                 fileChooser.setFileFilter(new javax.swing.filechooser.FileFilter() {
                     public boolean accept(File file) {
-                        return file.getName().toLowerCase().endsWith(".png") || file.isDirectory();
+                        return file.getName().toLowerCase().endsWith(".png") || file.getName().toLowerCase().endsWith(".jpg") || file.getName().toLowerCase().endsWith(".jpeg")|| file.isDirectory();
                     }
                     public String getDescription() {
-                        return "Arquivos png (*.png)";
+                        return "Imagens (*.jpg, *.jpeg, *.png)";
+                    }
+                    private String getExtension(File file) {
+                        String ext = null;
+                        String fileName = file.getName();
+                        int index = fileName.lastIndexOf('.');
+                        if (index > 0 && index < fileName.length() - 1) {
+                            ext = fileName.substring(index + 1).toLowerCase();
+                        }
+                        return ext;
                     }
                 });
                 int resultado = fileChooser.showOpenDialog(ViewFigureInfo.this);
                 if (resultado == JFileChooser.APPROVE_OPTION) {
                     File arquivoSelecionado = fileChooser.getSelectedFile();
                     campoArquivo.setText(arquivoSelecionado.getName());
+                    ImageIcon icon = new ImageIcon(arquivoSelecionado.getPath());
+                    Image image = icon.getImage();
+                    Image resizedImage = image.getScaledInstance(220, 250, Image.SCALE_SMOOTH);
+                    ImageIcon resizedIcon = new ImageIcon(resizedImage);
+                    label.setIcon(resizedIcon);
+                    label.setBounds(yy + 180, xx - 100, 220, 250);
+                    String hashMD5 = calcularHashMD5(arquivoSelecionado);
+                    tagField.setText(hashMD5);
+                    
                 }
             }
         });
-        
+
+        labelHash = new JLabel("Hash MD5: ");
+        labelHash.setForeground(Color.WHITE);
 		JLabel tagLabel = new JLabel("Tag");
 		tagLabel.setForeground(Color.WHITE);
-		JTextField tagField = new JTextField(15);
-		tagField.setBackground(Color.WHITE);
+		
 		JLabel descriptionLabel = new JLabel("Descrição");
 		descriptionLabel.setForeground(Color.WHITE);
 		JTextField descriptionField = new JTextField(15);
@@ -75,7 +103,8 @@ public class ViewFigureInfo extends JFrame {
 		cancelBtn.setFocusable(false);
 		cancelBtn.setBackground(Color.WHITE);
 		cancelBtn.setForeground(Color.black);
-		
+		label = new JLabel();
+
  		
 
 		nameLabel.setBounds(yy - 100, xx  - 90, 100, 25);
@@ -110,15 +139,38 @@ public class ViewFigureInfo extends JFrame {
 		panel.add(descriptionField);
 		panel.add(okayBtn);
 		panel.add(cancelBtn);
-
+        panel.add(label);
+        panel.add(labelHash);
 
 		add(panel);
 	}
+	 private String calcularHashMD5(File arquivo) {
+	        try {
+	            MessageDigest md = MessageDigest.getInstance("MD5");
+	            try (DigestInputStream dis = new DigestInputStream(new FileInputStream(arquivo), md)) {
+	                while (dis.read() != -1) ; 
+	                md = dis.getMessageDigest();
+	            }
+
+	            byte[] hashBytes = md.digest();
+	            StringBuilder sb = new StringBuilder();
+	            for (byte b : hashBytes) {
+	                sb.append(String.format("%02x", b));
+	            }
+	            return sb.toString();
+
+	        } catch (NoSuchAlgorithmException | IOException e) {
+	            e.printStackTrace();
+	        }
+	        return null;
+	    }
 
 	public static void main(String args[]) {
-		ViewFigureInfo vf = new ViewFigureInfo();
-		vf.setVisible(true);
-
+		 SwingUtilities.invokeLater(() -> {
+	            ViewFigureInfo vf = new ViewFigureInfo();
+	            vf.setVisible(true);
+	        });
+        
 	}
 
 }

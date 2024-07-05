@@ -10,10 +10,8 @@ public class User {
 	private Role role;
 	private String email;
 	private String password;
-	private String deleteDescription;
 
-	public User(Integer id, Boolean active, String name, Role role, String email, String password,
-			String deleteDescription) {
+	public User(Integer id, Boolean active, String name, Role role, String email, String password) {
 		super();
 		this.id = id;
 		this.active = active;
@@ -21,7 +19,6 @@ public class User {
 		this.role = role;
 		this.email = email;
 		this.password = password;
-		this.deleteDescription = deleteDescription;
 	}
 
 	public Integer getId() {
@@ -70,13 +67,5 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public String getDeleteDescription() {
-		return deleteDescription;
-	}
-
-	public void setDeleteDescription(String deleteDescription) {
-		this.deleteDescription = deleteDescription;
 	}
 }

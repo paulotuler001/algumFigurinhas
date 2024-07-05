@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 import entities.User;
-import repositories.LoginRepository;
+import enums.Role;
 import services.LoginService;
 
 public class ViewLogin extends JFrame{
@@ -22,6 +22,18 @@ public class ViewLogin extends JFrame{
 		
 		int xx = this.getHeight()/3;
 		int yy = this.getWidth()/3;
+		
+		String imagePath = "C:\\Users\\Public\\a\\6.jpg";
+        ImageIcon backgroundImageIcon = new ImageIcon(imagePath);
+        Image backgroundImage = backgroundImageIcon.getImage();
+
+        JPanel panel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+            }
+        };
 		
 		JLabel usernameLabel = new JLabel("Login");
 		usernameLabel.setForeground(Color.WHITE);
@@ -51,10 +63,10 @@ public class ViewLogin extends JFrame{
 		loginButton.setBounds(yy + 25, xx + 90, 80, 25);
 		cancelButton.setBounds(yy + 140, xx + 90, 80, 25);
 
-		JPanel panel = new JPanel();
+		//JPanel panel = new JPanel();
 		panel.setBackground(Color.WHITE);
 		panel.setLayout(null);
-		panel.setBackground(new Color(13, 62, 16));
+		panel.setPreferredSize(new Dimension(253,353));
 		panel.add(usernameLabel);
 		panel.add(usernameField);
 		panel.add(passwordLabel);
@@ -74,6 +86,16 @@ public class ViewLogin extends JFrame{
                 if ( user != null) {
                     JOptionPane.showMessageDialog(null, "Login successful");
                     JOptionPane.showMessageDialog(null, "Welcome back " + user.getName());
+                    
+                    if(user.getRole().equals(Role.ADM)){
+                    	ViewAdmin va = new ViewAdmin();
+						va.setVisible(true);						
+					}else{
+						ViewAuthor va = new ViewAuthor();
+						va.setVisible(true);	
+					}
+                    
+                    
                 } else {
                     JOptionPane.showMessageDialog(null, "Incorrect login");
                 }
