@@ -1,5 +1,7 @@
 package services;
 
+import javax.swing.JOptionPane;
+
 import entities.LittleFigure;
 import repositories.LittleFigureRepository;
 
@@ -19,12 +21,12 @@ public class LittleFigureService {
 		lfr.saveLF(lf);
 	}
 	
-	public void getLFById(Integer id) {
+	public LittleFigure getLFById(Integer id) {
 		
 		if(id < 1) 
 			throw new ExceptionService("Digite um id inteiro válido");
 		
-		lfr.getLFById(id);
+		return lfr.getLFById(id);
 	}
 	
 	public Object[][] getAllLittleFigures() {
@@ -35,18 +37,34 @@ public class LittleFigureService {
 		
 		if(id < 1) 
 			throw new ExceptionService("Digite um id inteiro válido");
-		else if(!lfr.getLFById(id))
+		else if(lfr.getLFById(id) == null)
 			throw new ExceptionService("Figurinha não encontrada");
 		
 		lfr.deleteLFById(id);
 		
 	}
 	
+	public void deleteAllLFs() {
+		
+		int response = JOptionPane.showConfirmDialog(null, "Você realmente quer deletar tudo?", "Confirmação", JOptionPane.YES_NO_OPTION);
+
+        if (response == JOptionPane.YES_OPTION) {
+            // Segundo diálogo de confirmação
+            int secondResponse = JOptionPane.showConfirmDialog(null, "Tem certeza? TUDO será deletado!", "Confirmação Final", JOptionPane.YES_NO_OPTION);
+
+            if (secondResponse == JOptionPane.YES_OPTION) {
+                // Deleta todos os registros
+                lfr.deleteAllLFs();
+                JOptionPane.showMessageDialog(null, "Todos os registros foram deletados com sucesso.");
+            }
+        }
+	}
+	
 	public void editLFById(Integer id, LittleFigure lf) {
 		
 		if(id < 1) 
 			throw new ExceptionService("Digite um id inteiro válido");
-		else if(!lfr.getLFById(id)) 
+		else if(lfr.getLFById(id) == null) 
 			throw new ExceptionService("Figurinha não encontrada");
 		else if(lf.getName().length()<1) 
 			throw new ExceptionService("Digite um nome válido");
