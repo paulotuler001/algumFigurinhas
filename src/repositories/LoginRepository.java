@@ -57,8 +57,10 @@ public class LoginRepository {
 					
 					if (role.equals("COLLECTIONATOR"))
 						user = new User(colId, true, name, Role.COLLECTIONATOR, email, passwordd);
-					else
+					else if(role.equals("AUTHOR"))
 						user = new User(colId, true, name, Role.AUTHOR, email, passwordd);
+					else 
+						user = new User(colId, true, name, Role.ADM, email, passwordd);
 				}
 				SQLite.closeConnection();
 				return user;
