@@ -52,12 +52,12 @@ public class ViewFigureInfo extends JDialog {
 		int fieldYY = yy - 28;
 		
 		//app icon
-		ImageIcon icon = new ImageIcon("images\\icon.png");
+		ImageIcon icon = new ImageIcon(getClass().getResource("images/icon.png"));
     	dialog.setIconImage(icon.getImage());
     	
     	//background image
-		String imagePath = "images\\5.jpg";
-        ImageIcon backgroundImageIcon = new ImageIcon(imagePath);
+		String imagePath = "images/5.jpg";
+        ImageIcon backgroundImageIcon = new ImageIcon(getClass().getResource(imagePath));
         Image backgroundImage = backgroundImageIcon.getImage();
         JPanel panel = new JPanel() {
             @Override

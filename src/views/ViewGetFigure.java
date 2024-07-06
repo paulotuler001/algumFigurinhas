@@ -21,7 +21,7 @@ public class ViewGetFigure extends JFrame {
 		int xx = this.getHeight() / 3;
 		int yy = this.getWidth() / 3;
 		
-		String imagePath = "C:\\Users\\Public\\a\\3.jfif";
+		String imagePath = "/images/gradient.jfif";
         ImageIcon backgroundImageIcon = new ImageIcon(imagePath);
         Image backgroundImage = backgroundImageIcon.getImage();
 

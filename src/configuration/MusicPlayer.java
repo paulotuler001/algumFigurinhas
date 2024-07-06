@@ -1,7 +1,9 @@
 package configuration;
 
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -16,15 +18,30 @@ public class MusicPlayer {
     private FloatControl volumeControl;
 	
 	public MusicPlayer() {
+
+		
 		try {
-			File audioFile = new File("music-theme.wav");
-			AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
-            clip = AudioSystem.getClip();
-            clip.open(audioStream);
+        	
+
+			InputStream audioFile = getClass().getResourceAsStream("music-theme.wav");
+			
+			if (audioFile == null) {
+				System.out.println("aaa");
+                throw new IOException("Audio file not found");
+            }
+			try (BufferedInputStream bufferedIn = new BufferedInputStream(audioFile);
+	                 AudioInputStream audioStream = AudioSystem.getAudioInputStream(bufferedIn)) {
+	                clip = AudioSystem.getClip();
+	                clip.open(audioStream);
+	                volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+	            
+				
+			}catch(UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+				System.out.println(e.getMessage());
+			}
             
-            volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-		}catch(UnsupportedAudioFileException | IOException | LineUnavailableException e) {
-			e.getMessage();
+		}catch(IOException e) {
+			System.out.println(e.getMessage());
 		}
 	}
 	

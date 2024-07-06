@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Main-Class: views.ViewLogin
+Class-Path: bin 
+ libs/jackson-annotations-2.17.1.jar 
+ libs/jackson-core-2.17.1.jar 
+ libs/jackson-databind-2.17.1.jar 
+ libs/jackson-dataformat-xml-2.17.1.jar 
+ libs/jbcrypt-0.4.jar 
+ libs/jbcrypt-0.4-javadoc.jar 
+ libs/slf4j-api-2.0.13.jar 
+ libs/slf4j-nop-2.0.13.jar 
+ libs/sqlite-jdbc-3.46.0.0.jar 
+ libs/stax2-api-4.2.2.jar

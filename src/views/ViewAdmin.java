@@ -57,7 +57,7 @@ public class ViewAdmin extends JFrame {
 		mute.setForeground(Color.WHITE);
 		mute.setBackground(Color.DARK_GRAY);
 
-		ImageIcon icon = new ImageIcon("images\\icon.png");
+		ImageIcon icon = new ImageIcon(getClass().getResource("/images/icon.png"));
     	setIconImage(icon.getImage());
 
 		int yy = 60;
@@ -188,7 +188,7 @@ public class ViewAdmin extends JFrame {
 		query.setBackground(new Color(13, 62, 16));
 		query.setPreferredSize(new Dimension(800,480));
 
-		String imagePath = "images\\5.jpg";
+		String imagePath = "images/5.jpg";
         ImageIcon backgroundImageIcon = new ImageIcon(imagePath);
         Image backgroundImage = backgroundImageIcon.getImage();
 		

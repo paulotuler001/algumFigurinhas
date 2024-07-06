@@ -14,7 +14,7 @@ public class ViewCollectionator extends JFrame {
 		setLocationRelativeTo(null);
 		setResizable(false);
 		
-		ImageIcon icon = new ImageIcon("images\\icon.png");
+		ImageIcon icon = new ImageIcon(getClass().getResource("/images/icon.png"));
     	setIconImage(icon.getImage());
 	}
 	

@@ -3,13 +3,17 @@ package views;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URL;
 
 import javax.swing.*;
 
 import configuration.MusicPlayer;
 import entities.User;
 import enums.Role;
+import services.AlbumService;
+import services.LittleFigureService;
 import services.LoginService;
+import services.UserService;
 
 public class ViewLogin extends JFrame {
 
@@ -24,10 +28,10 @@ public class ViewLogin extends JFrame {
 		setResizable(false);
 		
 		//theme breaking bad
-		float volume = -30.0f;
+		float volume = -30.0f; //trolei
 		MusicPlayer mp = new MusicPlayer();
 		mp.playLoop();
-		mp.setVolume(-30.0f);
+		mp.setVolume(0.0f);
 		JButton mute = new JButton("🔇");
 		mute.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -51,12 +55,12 @@ public class ViewLogin extends JFrame {
 		
 		int xx = this.getHeight() / 3;
 		int yy = this.getWidth() / 3;
-
-		ImageIcon appIcon = new ImageIcon("images\\icon.png");
+		URL url = getClass().getResource("/images/icon.png");
+		ImageIcon appIcon = new ImageIcon(url);
 		setIconImage(appIcon.getImage());
 
-		String imagePath = "images\\6.jpg";
-		ImageIcon backgroundImageIcon = new ImageIcon(imagePath);
+		String imagePath = "/images/6.jpg";
+		ImageIcon backgroundImageIcon = new ImageIcon(getClass().getResource(imagePath));
 		Image backgroundImage = backgroundImageIcon.getImage();
 
 		JPanel panel = new JPanel() {
@@ -123,7 +127,7 @@ public class ViewLogin extends JFrame {
 
 					JOptionPane.showMessageDialog(null, "Login successful");
 					JOptionPane.showMessageDialog(null, "Welcome back "+user.getRole().toString() + ": " + user.getName());
-
+					mp.stop();
 					if (user.getRole().equals(Role.ADM)) {
 						ViewAdmin va = new ViewAdmin();
 						va.setVisible(true);
@@ -134,7 +138,7 @@ public class ViewLogin extends JFrame {
 						ViewCollectionator vc = new ViewCollectionator();
 						vc.setVisible(true);
 					}
-					mp.stop();
+					
 				} else {
 					JOptionPane.showMessageDialog(null, "Incorrect login");
 				}
@@ -144,6 +148,21 @@ public class ViewLogin extends JFrame {
 
 	public static void main(String args[]) {
 
+		User author = new User(10, true, "Zap", Role.AUTHOR, "a@o.com", "123");
+		User adm = new User(11, null, "Zed", Role.ADM, "a@oo.com", "123");
+		User col = new User(99, true, "Zip", Role.COLLECTIONATOR, "a@ooo.com", "123");
+		
+		LittleFigureService lfs = new LittleFigureService();
+		UserService as = new UserService();
+		UserService ads = new UserService();
+		AlbumService als = new AlbumService();
+		UserService cs = new UserService();
+		
+		as.save(author);
+		ads.save(adm);
+		cs.save(col);
+		
+		
 		ViewLogin vl = new ViewLogin();
 		vl.setVisible(true);
 	}

@@ -15,21 +15,7 @@ public class Main {
 //		LittleFigure lFigure = new LittleFigure(2, "neymar", "tag", "foto", "descricao", 1, 1, 1, 2);
 //		Album album = new Album(1, "Album", 1);
 
-		User author = new User(10, true, "Zap", Role.AUTHOR, "a@o.com", "123");
-		User adm = new User(11, null, "Zed", Role.ADM, "a@oo.com", "123");
-		User col = new User(99, true, "Zip", Role.COLLECTIONATOR, "a@ooo.com", "123");
 		
-		LittleFigureService lfs = new LittleFigureService();
-		UserService as = new UserService();
-		UserService ads = new UserService();
-		AlbumService als = new AlbumService();
-		UserService cs = new UserService();
-		
-//		lfs.saveLF(lFigure);
-//		als.saveAlbum(album);
-		as.save(author);
-		ads.save(adm);
-		cs.save(col);
 		
 //		lfs.getAllLittleFigures();
 //		as.getAllUsers();

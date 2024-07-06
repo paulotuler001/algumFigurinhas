@@ -35,15 +35,15 @@ public class ViewUser extends JDialog {
 		dialog.setSize(new Dimension(800, 600));
 		dialog.setLocationRelativeTo(null);
 		
-		ImageIcon icon = new ImageIcon("images\\icon.png");
+		ImageIcon icon = new ImageIcon(getClass().getResource("images/icon.png"));
     	dialog.setIconImage(icon.getImage());
 //		 setResizable(false);
 
 		int xx = 200;
 		int yy = xx+50;
 		
-		String imagePath = "C:\\Users\\Public\\a\\3.jfif";
-        ImageIcon backgroundImageIcon = new ImageIcon(imagePath);
+		String imagePath = "/images/5.jpg";
+        ImageIcon backgroundImageIcon = new ImageIcon(getClass().getResource(imagePath));
         Image backgroundImage = backgroundImageIcon.getImage();
 
         JPanel panel = new JPanel() {
@@ -105,7 +105,6 @@ public class ViewUser extends JDialog {
 						: dropdown.getSelectedIndex() == 1 ? Role.COLLECTIONATOR : Role.ADM;
 				char[] currentPassword = passwordField.getPassword();
 				if (isCreate) {
-					System.out.println("ta no lugar certo");
 					User user = new User(ur.getNewId(), true, loginField.getText(), role, loginField.getText(),
 							BCrypt.hashpw(new String(currentPassword), BCrypt.gensalt()));
 					us.save(user);

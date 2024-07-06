@@ -53,11 +53,11 @@ public class ViewAuthor extends JFrame {
 		mute.setForeground(Color.WHITE);
 		mute.setBackground(Color.DARK_GRAY);
 
-		ImageIcon icon = new ImageIcon("images\\icon.png");
+		ImageIcon icon = new ImageIcon(getClass().getResource("/images/icon.png"));
 		setIconImage(icon.getImage());
-
-		String imagePath = "images\\5.jpg";
-		ImageIcon backgroundImageIcon = new ImageIcon(imagePath);
+		
+		String imagePath = "/images/5.jpg";
+		ImageIcon backgroundImageIcon = new ImageIcon(getClass().getResource(imagePath));
 		Image backgroundImage = backgroundImageIcon.getImage();
 
 		JPanel panel = new JPanel() {
