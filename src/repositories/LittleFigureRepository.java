@@ -62,7 +62,7 @@ public class LittleFigureRepository {
 		}
 	}
 
-	public Boolean getLFById(Integer id) {
+	public LittleFigure getLFById(Integer id) {
 
 		String sql = "SELECT * FROM lFigure WHERE lFigure.id = ?";
 		LittleFigure lf = null;
@@ -71,7 +71,6 @@ public class LittleFigureRepository {
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		){
 		pstmt.setInt(1,  id);
-		
 		
 		ResultSet rs = pstmt.executeQuery();
 		if(rs.next()) {
@@ -85,16 +84,15 @@ public class LittleFigureRepository {
 			Integer ownerId = rs.getInt("ownerId");
 			
 			lf = new LittleFigure(lfId, name, tag, photo, description, page, number, ownerId);	
-			this.toString(lf);
 		}
 		
 		SQLite.closeConnection();
 		
-		return lf != null;
+		return lf;
 		}catch(SQLException e) {
 			System.out.println(e.getMessage());
 			SQLite.closeConnection();
-			return false;
+			return null;
 		}
 	}
 	
@@ -118,6 +116,8 @@ public class LittleFigureRepository {
 			lfs[count][0] = idd;
 			lfs[count][1] = name;
 			lfs[count][2] = page;
+			
+			count++;
         }
 		SQLite.closeConnection();
 		return lfs;
@@ -143,6 +143,39 @@ public class LittleFigureRepository {
 		}catch(SQLException e) {
 			System.out.println(e.getMessage());
 			SQLite.closeConnection();
+		}
+	}
+	
+	public void deleteAllLFs() {
+		String sql = "DELETE * FROM lFigure;";
+		try(Connection conn = SQLite.getConnection();
+				Statement stmt = conn.createStatement();){
+			stmt.execute(sql);
+			System.out.println("All LFs were been delete successfully");
+			SQLite.closeConnection();
+		}catch(SQLException e) {
+			e.getMessage();
+			SQLite.closeConnection();
+		}
+	}
+
+	public Integer getNewId() {
+		String sql = "SELECT MAX(l.id) FROM lFigure l;";
+		
+		try(Connection conn = SQLite.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)){
+			
+			ResultSet rs = pstmt.executeQuery();
+			Integer returno = 1;
+			if(rs.next()) {
+				returno = rs.getInt(1) == 0 ? 1 : rs.getInt(1);
+			}
+			returno++;
+			SQLite.closeConnection();
+			return returno;
+		}catch(SQLException e) {
+			SQLite.closeConnection();
+			System.out.println(e.getMessage());
+			return null;
 		}
 	}
 	
