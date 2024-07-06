@@ -2,6 +2,7 @@ package views;
 
 import java.awt.Dimension;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 public class ViewCollectionator extends JFrame {
@@ -12,6 +13,9 @@ public class ViewCollectionator extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setResizable(false);
+		
+		ImageIcon icon = new ImageIcon("images\\icon.png");
+    	setIconImage(icon.getImage());
 	}
 	
 	public static void main(String[] args) {

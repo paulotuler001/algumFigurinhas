@@ -19,63 +19,68 @@ import services.UserService;
 
 public class ViewAdmin extends JFrame {
 	public ViewAdmin() {
-		setTitle("User Frame Manager");
+		
+		JFrame selFrame = this; 
+		
+		setTitle("FrmAdmin");
 		setSize(new Dimension(800, 600));
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
-//		 setResizable(false);
 		setLayout(new BorderLayout());
-		
+
+		ImageIcon icon = new ImageIcon("images\\icon.png");
+    	setIconImage(icon.getImage());
 
 		int yy = 60;
 		int xx = 167;
 		
-		String imagePath = "C:\\Users\\Public\\a\\3.jfif";
-        ImageIcon backgroundImageIcon = new ImageIcon(imagePath);
-        Image backgroundImage = backgroundImageIcon.getImage();
-        JPanel panel = new JPanel() {
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
-            }
-        };
-		
 		JButton addUserBtn = new JButton("+");
 		addUserBtn.setFocusable(false);
 		addUserBtn.setBackground(Color.white);
+		
 		JButton removeUserBtn = new JButton("-");
 		removeUserBtn.setFocusable(false);
 		removeUserBtn.setBackground(Color.white);
+		
 		JButton editUserBtn = new JButton("E");
 		editUserBtn.setFocusable(false);
 		editUserBtn.setBackground(Color.white);
+		
 		JButton filterUserBtn = new JButton("F");
 		filterUserBtn.setFocusable(false);
 		filterUserBtn.setBackground(Color.white);
+		
+		JButton backBtn = new JButton("<\u2190");
+		backBtn.setFocusable(false);
+		backBtn.setBackground(Color.white);
 
 		JTextField filterField = new JTextField(15);
 		
-		
-		JPanel query = new JPanel();
 
-		String[] colunas = { "Nome", "Perfil" };
+		String[] columns = { "Name", "Profile" };
 		UserService us = new UserService();
-		
-		DefaultTableModel model = new DefaultTableModel(us.getAllUsers(), colunas);
+		DefaultTableModel model = new DefaultTableModel(us.getAllUsers(), columns);
 		JTable tabela = new JTable(model);
 		JScrollPane scrollPane = new JScrollPane(tabela);
-		scrollPane.getViewport().setBackground(new Color(13, 62, 16));
-		scrollPane.setBorder(new EmptyBorder(0, 0, 0, 0));
+		
+		JLabel userLabel = new JLabel("Users");
+		userLabel.setFont(new Font("Trebuchet MS", Font.CENTER_BASELINE, 18));
+		userLabel.setForeground(Color.white);
+		
+		
+		scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
+		scrollPane.getViewport().setBackground(Color.DARK_GRAY);
+		scrollPane.setBorder(new EmptyBorder(15, 5, 5, 5));
+		scrollPane.setBackground(Color.DARK_GRAY);
 		tabela.setBackground(new Color(162, 219, 118));
-		tabela.getTableHeader().setBackground(Color.WHITE);
+		tabela.getTableHeader().setBackground(Color.DARK_GRAY);
 		tabela.getTableHeader().setFont(new Font("Arial", Font.BOLD, 16));
-		tabela.getTableHeader().setForeground(Color.RED);
+		tabela.getTableHeader().setForeground(Color.WHITE);
 		
 		removeUserBtn.addActionListener(new ActionListener() {
-            
             public void actionPerformed(ActionEvent e) {
-                int selectedRow = (int) tabela.getValueAt(tabela.getSelectedRow(), 0);
+                
+            	int selectedRow = (int) tabela.getValueAt(tabela.getSelectedRow(), 0);
                 
                 if (selectedRow != -1) {
                 	System.out.println(selectedRow);
@@ -86,12 +91,13 @@ public class ViewAdmin extends JFrame {
                 }
             }
         });
-		JFrame selFrame = this; 
+		
+		
 
 		editUserBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				// 0 é author, 1 collector, 2 adm
+				// 0 = author, 1 = collector, 2 = adm
                 int selectedRow = (int) tabela.getValueAt(tabela.getSelectedRow(), 0);
 				
 				User user = us.getUserById(selectedRow);
@@ -105,10 +111,7 @@ public class ViewAdmin extends JFrame {
 				
 			}
 		});
-			//	vu.setVisible(true);
-				//
-			//}
-		//});
+		
 		addUserBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ViewUser vu = new ViewUser(1,"", "", 0);
@@ -131,41 +134,65 @@ public class ViewAdmin extends JFrame {
 			}
 		});
 		
+		backBtn.addActionListener(e -> dispose());
 		
-		scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
-
 		addUserBtn.setBounds(xx, yy, 35, 35);
 		removeUserBtn.setBounds(xx+38,yy, 35, 35);
 		editUserBtn.setBounds(xx+76, yy, 35, 35);
 		filterField.setBounds(xx+130, yy,280, 35);
 		filterUserBtn.setBounds(xx+415, yy, 35, 35);
+		scrollPane.setBounds(xx-40, yy+100, 550, 250);
+		userLabel.setBounds(xx-50, yy, 200,200);
+		backBtn.setBounds(0,0,35,35);
 		
 		addUserBtn.setMargin(new Insets(2,2,2,2));
 		removeUserBtn.setMargin(new Insets(2,2,2,2));
 		editUserBtn.setMargin(new Insets(2,2,2,2));
 		filterUserBtn.setMargin(new Insets(2,2,2,2));
+		backBtn.setMargin(new Insets(2,2,2,2));
+		
+		JPanel query = new JPanel();
 		
 		
-//		query.setLayout(null);
-		query.add(scrollPane);
+		query.setLayout(null);
+		
 		query.setBorder(null);
 		query.setBackground(new Color(13, 62, 16));
+		query.setPreferredSize(new Dimension(800,480));
 
-		JPanel upBarContainer = new JPanel();
+		String imagePath = "images\\5.jpg";
+        ImageIcon backgroundImageIcon = new ImageIcon(imagePath);
+        Image backgroundImage = backgroundImageIcon.getImage();
+		
+		JPanel upBarContainer = new JPanel(){
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                // Desenha a imagem de fundo redimensionada para preencher o painel
+                g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+            }
+        };
 		upBarContainer.setLayout(null);
-		upBarContainer.setPreferredSize(new Dimension(100,100));
+		upBarContainer.setPreferredSize(new Dimension(800,600));
 		upBarContainer.setBackground(new Color(13, 62, 16));
 		upBarContainer.add(addUserBtn);
 		upBarContainer.add(removeUserBtn);
 		upBarContainer.add(editUserBtn);
 		upBarContainer.add(filterField);
 		upBarContainer.add(filterUserBtn);
+		upBarContainer.add(userLabel);
+		upBarContainer.add(scrollPane);
+		upBarContainer.add(backBtn);
 		
+        
+		
+		JPanel spacer = new JPanel();
+		spacer.setBackground(new Color(13, 62, 16));
+		spacer.setPreferredSize(new Dimension(50,50));
 		
 		add(upBarContainer, BorderLayout.NORTH);
-		add(query, BorderLayout.CENTER);
-//		add(spacer);
-
+//		add(query, BorderLayout.SOUTH);
+//		add(spacer, BorderLayout.CENTER);
 	}
 
 	public static void main(String args[]) {

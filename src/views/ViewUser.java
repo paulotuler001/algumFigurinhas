@@ -34,6 +34,9 @@ public class ViewUser extends JDialog {
 		dialog.setTitle("User Frame Login");
 		dialog.setSize(new Dimension(800, 600));
 		dialog.setLocationRelativeTo(null);
+		
+		ImageIcon icon = new ImageIcon("images\\icon.png");
+    	dialog.setIconImage(icon.getImage());
 //		 setResizable(false);
 
 		int xx = 200;
