@@ -9,12 +9,15 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import configuration.MusicPlayer;
 import entities.LittleFigure;
 import entities.User;
 import services.LittleFigureService;
 
 public class ViewAuthor extends JFrame {
 
+	boolean vol = false;
+	
 	public ViewAuthor() {
 		setTitle("Author Frame");
 		setSize(new Dimension(800, 600));
@@ -24,6 +27,31 @@ public class ViewAuthor extends JFrame {
 
 		int xx = this.getHeight() / 3;
 		int yy = this.getWidth() / 3;
+		
+		//theme breaking bad
+		float volume = -30.0f;
+		MusicPlayer mp = new MusicPlayer();
+		mp.playLoop();
+		mp.setVolume(-30.0f);
+		JButton mute = new JButton("🔇");
+		mute.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(vol) {
+					mp.setVolume(volume);
+					vol = false;
+					mute.setText("🔉");
+				}else {
+					mp.setVolume(-100.0f);
+					vol = true;
+					mute.setText("🔇");
+				}
+			}
+		});
+		mute.setFont(new Font("", Font.BOLD, 15));
+		mute.setMargin(new Insets(2,2,2,2));
+		mute.setFocusable(false);
+		mute.setForeground(Color.WHITE);
+		mute.setBackground(Color.DARK_GRAY);
 
 		ImageIcon icon = new ImageIcon("images\\icon.png");
 		setIconImage(icon.getImage());
@@ -94,13 +122,14 @@ public class ViewAuthor extends JFrame {
 		removeFigureAllBtn.setFocusable(false);
 		removeFigureAllBtn.setBackground(Color.white);
 		JTextField filterFigureField = new JTextField(15);
-		JButton backBtn = new JButton("<\u2190");
+		JButton backBtn = new JButton("\u2190");
 		backBtn.setToolTipText("Log Out");
 		backBtn.addActionListener(e -> dispose());
 		backBtn.setMargin(new Insets(3,3,3,3));
 		backBtn.setFocusable(false);
-		backBtn.setBackground(Color.white);
-		backBtn.setFont(new Font("Arial", Font.BOLD, 12));
+		backBtn.setBackground(Color.DARK_GRAY);
+		backBtn.setFont(new Font("", Font.BOLD, 20));
+		backBtn.setForeground(Color.WHITE);
 
 		LittleFigureService lfs = new LittleFigureService();
 
@@ -193,6 +222,7 @@ public class ViewAuthor extends JFrame {
 		removeFigureAllBtn.setBounds(yy + 315, xx + 20, 50, 25);
 		scrollPane.setBounds(yy - 110, xx + 70, 500, 200);
 		backBtn.setBounds(0, 0, 35, 35);
+		mute.setBounds(50,0,35,35);
 
 		figure.setBounds(yy - 120, -233, 1000, 1000);
 		figure.setFont(new Font("Trebuchet MS", Font.BOLD, 18));
@@ -214,6 +244,7 @@ public class ViewAuthor extends JFrame {
 		panel.add(figure);
 		panel.add(scrollPane);
 		panel.add(backBtn);
+		panel.add(mute);
 
 		add(panel);
 	}

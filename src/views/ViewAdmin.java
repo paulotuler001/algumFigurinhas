@@ -14,10 +14,14 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.ScrollBarUI;
 import javax.swing.table.DefaultTableModel;
 
+import configuration.MusicPlayer;
 import entities.User;
 import services.UserService;
 
 public class ViewAdmin extends JFrame {
+	
+	boolean vol = false;
+	
 	public ViewAdmin() {
 		
 		JFrame selFrame = this; 
@@ -27,6 +31,31 @@ public class ViewAdmin extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setLayout(new BorderLayout());
+		
+		//theme breaking bad
+		float volume = -30.0f;
+		MusicPlayer mp = new MusicPlayer();
+		mp.playLoop();
+		mp.setVolume(-30.0f);
+		JButton mute = new JButton("🔇");
+		mute.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(vol) {
+					mp.setVolume(volume);
+					vol = false;
+					mute.setText("🔉");
+				}else {
+					mp.setVolume(-100.0f);
+					vol = true;
+					mute.setText("🔇");
+				}
+			}
+		});
+		mute.setFont(new Font("", Font.BOLD, 15));
+		mute.setMargin(new Insets(2,2,2,2));
+		mute.setFocusable(false);
+		mute.setForeground(Color.WHITE);
+		mute.setBackground(Color.DARK_GRAY);
 
 		ImageIcon icon = new ImageIcon("images\\icon.png");
     	setIconImage(icon.getImage());
@@ -50,10 +79,12 @@ public class ViewAdmin extends JFrame {
 		filterUserBtn.setFocusable(false);
 		filterUserBtn.setBackground(Color.white);
 		
-		JButton backBtn = new JButton("<\u2190");
+		JButton backBtn = new JButton("\u2190");
 		backBtn.setFocusable(false);
-		backBtn.setBackground(Color.white);
-
+		backBtn.setBackground(Color.DARK_GRAY);
+		backBtn.setFont(new Font("", Font.BOLD, 20));
+		backBtn.setForeground(Color.WHITE);
+		
 		JTextField filterField = new JTextField(15);
 		
 
@@ -108,7 +139,6 @@ public class ViewAdmin extends JFrame {
 				dispose();
 				ViewAdmin adminRefreshed = new ViewAdmin();
 				adminRefreshed.setVisible(true);
-				
 			}
 		});
 		
@@ -144,6 +174,7 @@ public class ViewAdmin extends JFrame {
 		scrollPane.setBounds(xx-40, yy+100, 550, 250);
 		userLabel.setBounds(xx-50, yy, 200,200);
 		backBtn.setBounds(0,0,35,35);
+		mute.setBounds(50,0,35,35);
 		
 		addUserBtn.setMargin(new Insets(2,2,2,2));
 		removeUserBtn.setMargin(new Insets(2,2,2,2));
@@ -152,10 +183,7 @@ public class ViewAdmin extends JFrame {
 		backBtn.setMargin(new Insets(2,2,2,2));
 		
 		JPanel query = new JPanel();
-		
-		
 		query.setLayout(null);
-		
 		query.setBorder(null);
 		query.setBackground(new Color(13, 62, 16));
 		query.setPreferredSize(new Dimension(800,480));
@@ -164,35 +192,27 @@ public class ViewAdmin extends JFrame {
         ImageIcon backgroundImageIcon = new ImageIcon(imagePath);
         Image backgroundImage = backgroundImageIcon.getImage();
 		
-		JPanel upBarContainer = new JPanel(){
+		JPanel panel = new JPanel(){
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                // Desenha a imagem de fundo redimensionada para preencher o painel
                 g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
             }
         };
-		upBarContainer.setLayout(null);
-		upBarContainer.setPreferredSize(new Dimension(800,600));
-		upBarContainer.setBackground(new Color(13, 62, 16));
-		upBarContainer.add(addUserBtn);
-		upBarContainer.add(removeUserBtn);
-		upBarContainer.add(editUserBtn);
-		upBarContainer.add(filterField);
-		upBarContainer.add(filterUserBtn);
-		upBarContainer.add(userLabel);
-		upBarContainer.add(scrollPane);
-		upBarContainer.add(backBtn);
-		
+		panel.setLayout(null);
+		panel.setPreferredSize(new Dimension(800,600));
+		panel.setBackground(new Color(13, 62, 16));
+		panel.add(addUserBtn);
+		panel.add(removeUserBtn);
+		panel.add(editUserBtn);
+		panel.add(filterField);
+		panel.add(filterUserBtn);
+		panel.add(userLabel);
+		panel.add(scrollPane);
+		panel.add(backBtn);
+		panel.add(mute);
         
-		
-		JPanel spacer = new JPanel();
-		spacer.setBackground(new Color(13, 62, 16));
-		spacer.setPreferredSize(new Dimension(50,50));
-		
-		add(upBarContainer, BorderLayout.NORTH);
-//		add(query, BorderLayout.SOUTH);
-//		add(spacer, BorderLayout.CENTER);
+		add(panel, BorderLayout.NORTH);
 	}
 
 	public static void main(String args[]) {

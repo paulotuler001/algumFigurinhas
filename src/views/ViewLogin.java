@@ -13,6 +13,8 @@ import services.LoginService;
 
 public class ViewLogin extends JFrame {
 
+	boolean vol = false;
+	
 	public ViewLogin() {
 
 		setTitle("Login");
@@ -21,9 +23,32 @@ public class ViewLogin extends JFrame {
 		setLocationRelativeTo(null);
 		setResizable(false);
 		
+		//theme breaking bad
+		float volume = -30.0f;
 		MusicPlayer mp = new MusicPlayer();
 		mp.playLoop();
-
+		mp.setVolume(-30.0f);
+		JButton mute = new JButton("🔇");
+		mute.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(vol) {
+					mp.setVolume(volume);
+					vol = false;
+					mute.setText("🔉");
+				}else {
+					mp.setVolume(-100.0f);
+					vol = true;
+					mute.setText("🔇");
+				}
+			}
+		});
+		mute.setFont(new Font("", Font.BOLD, 15));
+		mute.setMargin(new Insets(2,2,2,2));
+		mute.setFocusable(false);
+		mute.setForeground(Color.WHITE);
+		mute.setBackground(Color.DARK_GRAY);
+		
+		
 		int xx = this.getHeight() / 3;
 		int yy = this.getWidth() / 3;
 
@@ -74,13 +99,16 @@ public class ViewLogin extends JFrame {
 		passwordField.setBounds(yy + 60, xx + 30, 165, 25);
 		loginButton.setBounds(yy + 25, xx + 90, 80, 25);
 		cancelButton.setBounds(yy + 140, xx + 90, 80, 25);
-
+		mute.setBounds(0,0,40,40);
+		
+		
 		panel.add(usernameLabel);
 		panel.add(usernameField);
 		panel.add(passwordLabel);
 		panel.add(passwordField);
 		panel.add(loginButton);
 		panel.add(cancelButton);
+		panel.add(mute);
 		add(panel);
 		
 		LoginService ls = new LoginService();
@@ -106,7 +134,7 @@ public class ViewLogin extends JFrame {
 						ViewCollectionator vc = new ViewCollectionator();
 						vc.setVisible(true);
 					}
-
+					mp.stop();
 				} else {
 					JOptionPane.showMessageDialog(null, "Incorrect login");
 				}

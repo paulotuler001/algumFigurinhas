@@ -6,11 +6,14 @@ import java.io.IOException;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class MusicPlayer {
+	
 	private Clip clip;
+    private FloatControl volumeControl;
 	
 	public MusicPlayer() {
 		try {
@@ -18,6 +21,8 @@ public class MusicPlayer {
 			AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
             clip = AudioSystem.getClip();
             clip.open(audioStream);
+            
+            volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
 		}catch(UnsupportedAudioFileException | IOException | LineUnavailableException e) {
 			e.getMessage();
 		}
@@ -33,6 +38,14 @@ public class MusicPlayer {
 	public void stop() {
         if (clip != null) {
             clip.stop();
+        }
+    }
+	
+	public void setVolume(float value) {
+        if (volumeControl != null) {
+            float min = volumeControl.getMinimum();
+            float max = volumeControl.getMaximum();
+            volumeControl.setValue(Math.min(max, Math.max(min, value)));
         }
     }
 }
