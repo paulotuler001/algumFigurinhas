@@ -40,7 +40,7 @@ public class ViewAlbum extends JFrame {
         String imagePath = "/images/serieTitle.jpg"; // Caminho da imagem da capa
         ImageIcon coverImageIcon = new ImageIcon(getClass().getResource(imagePath));
         JLabel coverImageLabel = new JLabel(coverImageIcon);
-        coverImageLabel.setBackground(Color.red);
+
 
         // Controles de página
         JPanel pageControlsPanel = new JPanel();
