@@ -178,7 +178,7 @@ public class ViewAdmin extends JFrame {
 		scrollPane.setBounds(xx-40, yy+100, 550, 250);
 		userLabel.setBounds(xx-50, yy, 200,200);
 		backBtn.setBounds(0,0,35,35);
-		//mute.setBounds(50,0,35,35);
+
 		
 		addUserBtn.setMargin(new Insets(2,2,2,2));
 		removeUserBtn.setMargin(new Insets(2,2,2,2));
@@ -213,7 +213,6 @@ public class ViewAdmin extends JFrame {
 		panel.add(userLabel);
 		panel.add(scrollPane);
 		panel.add(backBtn);
-		//panel.add(mute);
         
 		add(panel, BorderLayout.NORTH);
 	}
