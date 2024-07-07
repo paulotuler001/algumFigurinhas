@@ -17,12 +17,15 @@ public class AlbumService {
 		ar.saveAlbum(album);
 	}
 	
-	public void getAlbumById(Integer id) {
+	public Album getAlbumById(Integer id) {
 		
 		if(id < 1) 
 			throw new ExceptionService("Digite um id inteiro válido");
 		
-		ar.getAlbumById(id);
+		return ar.getAlbumById(id);
+	}
+	public void editAlbum(Album album) {
+		ar.editAlbum(album);
 	}
 	
 	

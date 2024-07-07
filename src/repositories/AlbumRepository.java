@@ -8,6 +8,7 @@ import java.sql.Statement;
 
 import configuration.SQLite;
 import entities.Album;
+import entities.LittleFigure;
 
 public class AlbumRepository {
 	
@@ -16,7 +17,8 @@ public class AlbumRepository {
 		String sql = "CREATE TABLE IF NOT EXISTS album(\n" 
 		+ "id integer primary key,\n" 
 		+ "name TEXT NOT NULL,\n"
-		+ "totalLFigures INTEGER"
+		+ "pages INTEGER,"
+		+ "cape BLOB"
 		+ ");";
 
 		try (Connection conn = SQLite.getConnection(); Statement stmt = conn.createStatement();) {
@@ -31,12 +33,13 @@ public class AlbumRepository {
 
 	public void saveAlbum(Album album) {
 
-		String sql = "INSERT INTO album(id, name, totalLFigures) VALUES(?, ?, ?)";
+		String sql = "INSERT INTO album(id, name, pages, cape) VALUES(?, ?, ?, ?)";
 
 		try (Connection conn = SQLite.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql);) {
 			pstmt.setInt(1, album.getId());
 			pstmt.setString(2, album.getName());
-			pstmt.setInt(3, album.getTotalLFigures());
+			pstmt.setInt(3, album.getPages());
+			pstmt.setBytes(4, album.getCape());
 			pstmt.executeUpdate();
 			SQLite.closeConnection();
 		} catch (SQLException e) {
@@ -44,30 +47,47 @@ public class AlbumRepository {
 			System.out.println(e.getMessage());
 		}
 	}
+	
+		public void editAlbum(Album album) {
+		
+			String sql = "UPDATE album SET id = ?, name = ?, pages = ?, cape = ? WHERE album.id = 1";
+			
+			try(
+			Connection conn = SQLite.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			){
+				pstmt.setInt(1, album.getId());
+				pstmt.setString(2, album.getName());
+				pstmt.setInt(3, album.getPages());
+				pstmt.setBytes(4, album.getCape());
+				pstmt.executeUpdate();
+				SQLite.closeConnection();
+			}catch(SQLException e) {
+				System.out.println(e.getMessage());
+				SQLite.closeConnection();
+			}
+		}
 
-	public Boolean getAlbumById(Integer id) {
-//todo - retornar o album
+	public Album getAlbumById(Integer id) {
+		
 		String sql = "SELECT * FROM album WHERE album.id = ?";
 		Album album = null;
 		try (Connection conn = SQLite.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql);) {
 			pstmt.setInt(1, id);
-			
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next()) {
 				int albumId = rs.getInt("id");
 				String albumName = rs.getString("name");
-				int totalLFigures = rs.getInt("totalLFigures");
-				album = new Album(albumId, albumName, totalLFigures);
-				
-				this.toString(album);
+				int pages = rs.getInt("pages");
+				byte[] cape = rs.getBytes("cape");
+				album = new Album(albumId, albumName, pages, cape);
 			}
-			
 			SQLite.closeConnection();
-			return album.getId() > 1 ;
+			return album;
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 			SQLite.closeConnection();
-			return false ;
+			return null;
 		}
 	}
 

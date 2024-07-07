@@ -3,7 +3,10 @@ package views;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.regex.PatternSyntaxException;
 
 import javax.swing.*;
@@ -15,14 +18,16 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 import configuration.MusicPlayer;
+import entities.Album;
 import entities.LittleFigure;
 import entities.User;
+import services.AlbumService;
 import services.LittleFigureService;
 
 public class ViewAuthor extends JFrame {
 
 	boolean vol = false;
-	
+	private File arquivoSelecionado;
 	public ViewAuthor() {
 		setTitle("Author Frame");
 		setSize(new Dimension(800, 600));
@@ -47,7 +52,10 @@ public class ViewAuthor extends JFrame {
 				g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
 			}
 		};
-
+		AlbumService ass = new AlbumService();
+		Album pre = ass.getAlbumById(1);
+		
+		
 		JLabel nameLabel = new JLabel("Name");
 		nameLabel.setForeground(Color.WHITE);
 		JTextField nameField = new JTextField(15);
@@ -80,11 +88,17 @@ public class ViewAuthor extends JFrame {
 				});
 				int resultado = fileChooser.showOpenDialog(ViewAuthor.this);
 				if (resultado == JFileChooser.APPROVE_OPTION) {
-					File arquivoSelecionado = fileChooser.getSelectedFile();
+					arquivoSelecionado = fileChooser.getSelectedFile();
 					campoArquivo.setText(arquivoSelecionado.getName());
 				}
 			}
 		});
+		
+		if(pre!=null) {
+			nameField.setText(pre.getName());
+			pageField.setText(pre.getPages().toString());
+			campoArquivo.setText("cape.jpg");
+		}
 
 		JButton addFigureBtn = new JButton("+");
 		addFigureBtn.setFocusable(false);
@@ -99,6 +113,7 @@ public class ViewAuthor extends JFrame {
 		filterFigureBtn.setFocusable(false);
 		filterFigureBtn.setBackground(Color.white);
 		JButton removeFigureAllBtn = new JButton("L");
+		removeFigureAllBtn.setToolTipText("Erase All");
 		removeFigureAllBtn.setFocusable(false);
 		removeFigureAllBtn.setBackground(Color.white);
 		JTextField filterFigureField = new JTextField(15);
@@ -110,6 +125,22 @@ public class ViewAuthor extends JFrame {
 		backBtn.setBackground(Color.DARK_GRAY);
 		backBtn.setFont(new Font("", Font.BOLD, 20));
 		backBtn.setForeground(Color.WHITE);
+		
+		JButton saveAlbum = new JButton("S");
+		saveAlbum.setToolTipText("Save Album");
+		saveAlbum.setBackground(Color.WHITE);
+		
+		saveAlbum.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AlbumService as = new AlbumService();
+				Album album = new Album(1, nameField.getText(), Integer.parseInt(pageField.getText()), convertFileToByteArray(arquivoSelecionado));
+				if(as.getAlbumById(1) != null) {
+					as.editAlbum(album);
+				}else {
+					as.saveAlbum(album);
+				}
+			}
+		});
 
 		LittleFigureService lfs = new LittleFigureService();
 
@@ -229,7 +260,9 @@ public class ViewAuthor extends JFrame {
                 }
             }
         });
-
+		
+		int btnYY = xx+20;
+		
 		nameLabel.setBounds(yy - 100, xx - 90, 185, 25);
 		nameField.setBounds(yy - 50, xx - 90, 415, 25);
 		pageLabel.setBounds(yy - 100, xx - 50, 185, 25);
@@ -237,15 +270,16 @@ public class ViewAuthor extends JFrame {
 		coverLabel.setBounds(yy + 50, xx - 50, 65, 25);
 		campoArquivo.setBounds(yy + 90, xx - 50, 230, 25);
 		btnSelecionar.setBounds(yy + 320, xx - 50, 45, 25);
-		addFigureBtn.setBounds(yy - 90, xx + 20, 50, 25);
-		removeFigureBtn.setBounds(yy - 35, xx + 20, 50, 25);
-		editFigureBtn.setBounds(yy + 20, xx + 20, 50, 25);
-		filterFigureField.setBounds(yy + 90, xx + 20, 168, 25);
-		filterFigureBtn.setBounds(yy + 260, xx + 20, 50, 25);
-		removeFigureAllBtn.setBounds(yy + 315, xx + 20, 50, 25);
+		
+		addFigureBtn.setBounds(yy - 100, btnYY, 50, 25);
+		removeFigureBtn.setBounds(yy - 45, btnYY, 50, 25);
+		editFigureBtn.setBounds(yy + 10, btnYY, 50, 25);
+		filterFigureField.setBounds(yy + 68, btnYY, 150, 25);
+		filterFigureBtn.setBounds(yy + 220, btnYY, 50, 25);
+		removeFigureAllBtn.setBounds(yy + 275, btnYY, 50, 25);
 		scrollPane.setBounds(yy - 110, xx + 70, 500, 200);
 		backBtn.setBounds(0, 0, 35, 35);
-
+		saveAlbum.setBounds(yy+330, btnYY, 50,25);
 
 		figure.setBounds(yy - 120, -233, 1000, 1000);
 		figure.setFont(new Font("Trebuchet MS", Font.BOLD, 18));
@@ -267,6 +301,7 @@ public class ViewAuthor extends JFrame {
 		panel.add(figure);
 		panel.add(scrollPane);
 		panel.add(backBtn);
+		panel.add(saveAlbum);
 
 		add(panel);
 	}
@@ -275,6 +310,22 @@ public class ViewAuthor extends JFrame {
 		ViewAuthor va = new ViewAuthor();
 		va.setVisible(true);
 
+	}
+	public static byte[] convertFileToByteArray(File file)  {
+		try (FileInputStream fis = new FileInputStream(file); ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
+
+			byte[] buffer = new byte[1024];
+			int bytesRead;
+
+			while ((bytesRead = fis.read(buffer)) != -1) {
+				bos.write(buffer, 0, bytesRead);
+			}
+
+			return bos.toByteArray();
+		} catch (IOException e) {
+			e.getMessage();
+			return null;
+		}
 	}
 
 }

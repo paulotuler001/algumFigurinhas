@@ -4,13 +4,15 @@ public class Album {
 	
 	private Integer id;
 	private String name;
-	private Integer totalLFigures;
+	private Integer pages;
+	private byte[] cape;
 	
-	public Album(Integer id, String name, Integer totalLFigures) {
+	public Album(Integer id, String name, Integer totalLFigures, byte[] cape) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.totalLFigures = totalLFigures;
+		this.pages = totalLFigures;
+		this.cape = cape;
 	}
 	
 	public Integer getId() {
@@ -25,11 +27,17 @@ public class Album {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Integer getTotalLFigures() {
-		return totalLFigures;
+	public Integer getPages() {
+		return pages;
 	}
-	public void setTotalLFigures(Integer totalLFigures) {
-		this.totalLFigures = totalLFigures;
+	public void setPages(Integer pages) {
+		this.pages = pages;
+	}
+	public byte[] getCape() {
+		return cape;
+	}
+	public void setPages(byte[] cape) {
+		this.cape = cape;
 	}
 	
 	
