@@ -28,7 +28,7 @@ public class ViewLogin extends JFrame {
 		setResizable(false);
 		
 		//theme breaking bad
-		float volume = -30.0f; //trolei
+		float volume = -30.0f;
 		MusicPlayer mp = new MusicPlayer();
 		mp.playLoop();
 		mp.setVolume(volume);		JButton mute = new JButton("🔇");

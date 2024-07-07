@@ -45,7 +45,6 @@ public class ViewSplash extends JWindow {
         label.setVerticalAlignment(JLabel.BOTTOM);
         content.add(label, BorderLayout.NORTH);
 
-        // Configuração do texto
         JLabel text = new JLabel();
         text.setHorizontalAlignment(JLabel.CENTER);
         text.setFont(new Font("Courier New", Font.BOLD, 20));
@@ -62,14 +61,12 @@ public class ViewSplash extends JWindow {
         text.setText(texts[randomNumber]);
         content.add(text, BorderLayout.CENTER);
 
-        // Configuração da barra de progresso
         progressBar = new JProgressBar();
         progressBar.setPreferredSize(new Dimension(800, 30));
         progressBar.setStringPainted(false);
         progressBar.setBackground(new Color(13, 62, 16));
         content.add(progressBar, BorderLayout.SOUTH);
 
-        // Configuração do JWindow
         setSize(800, 600);
         setLocationRelativeTo(null);
     }

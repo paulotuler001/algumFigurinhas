@@ -11,18 +11,15 @@ import javax.swing.*;
 import services.LittleFigureService;
 
 		public class ViewAllFiguresOne extends JFrame {
-//		    private int totalFigurines = 12; // Exemplo com 12 figurinhas
-//		    private int figurinesPerPage = 6; 
+
 		    public void openDialog(JFrame parentFrame) {
-//		    	JDialog dialog = new JDialog(parentFrame, "Page Two", true);
+
 		    	this.setTitle("All Figures Frame");		        
 		    	this.setSize(new Dimension(800, 600));
 		    	this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		        this.setLocationRelativeTo(null);
 		    	this.setLayout(new BorderLayout());
 		               
-
-		        // Botões no canto superior esquerdo
 		        JButton changePasswordBtn = new JButton("1");
 		        changePasswordBtn.setFocusable(false);
 		        changePasswordBtn.setBackground(Color.white);
@@ -50,19 +47,18 @@ import services.LittleFigureService;
 		        topButtonsPanel.add(aboutBtn);
 		        topButtonsPanel.setBackground((new Color(13, 62, 16)));
 
-		        // Slots para figurinhas
 		        JPanel figurineSlotsPanel = new JPanel();
-		        figurineSlotsPanel.setLayout(new GridLayout(2, 4, 10, 10)); // Exemplo com 2 linhas e 4 colunas
-		        figurineSlotsPanel.setBackground(new Color(13, 62, 16)); // Cor de fundo para visualização
+		        figurineSlotsPanel.setLayout(new GridLayout(2, 4, 10, 10)); 
+		        figurineSlotsPanel.setBackground(new Color(13, 62, 16)); 
 
 		        LittleFigureService lfs = new LittleFigureService();
 		        ArrayList<ImageIcon> figures = lfs.getAllPhotos();
 		        
-		        for (int i = 0; i< 8; i++) { // 8 slots de figurinhas (pode ajustar conforme necessário)
+		        for (int i = 0; i< 8; i++) { 
 		            JPanel slotPanel = new JPanel();
 		            slotPanel.setBorder(BorderFactory.createLineBorder(Color.black));
 		            slotPanel.setBackground((new Color(162, 219, 118)));
-		            slotPanel.setPreferredSize(new Dimension(100, 100)); // Tamanho do slot de figurinha
+		            slotPanel.setPreferredSize(new Dimension(100, 100)); 
 		            JLabel figurineLabel = new JLabel("Figurinha " + (i + 1));
 		            try {
 		            	ImageIcon icon = figures.get(i);
@@ -76,7 +72,6 @@ import services.LittleFigureService;
 		            figurineSlotsPanel.add(slotPanel);
 		        }
 
-		       // int totalPages = (int) Math.ceil((double) totalFigurines / figurinesPerPage);
 		        JPanel pageControlsPanel = new JPanel();
 		        pageControlsPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
 		        pageControlsPanel.setBackground((new Color(13, 62, 16)));
@@ -85,7 +80,6 @@ import services.LittleFigureService;
 		        JButton nextPageBtn = new JButton(">");
 		        JButton lastPageBtn = new JButton(">>");
 		        JLabel pageLabel = new JLabel("Página 2 de 10 ");
-		        // JLabel pageLabel = new JLabel("Página 1 de 10 " + totalPages);
 		        pageLabel.setForeground(Color.WHITE);
 		        pageControlsPanel.add(firstPageBtn);
 		        firstPageBtn.setBackground(Color.white);
@@ -111,11 +105,4 @@ import services.LittleFigureService;
 		        this.add(mainPanel, BorderLayout.CENTER);
 		        this.setVisible(true);
 		    }
-
-//		    public static void main(String args[]) {
-//		        SwingUtilities.invokeLater(() -> {
-//		        	ViewAllFigures va = new ViewAllFigures();
-//		            va.setVisible(true);
-//		        });
-//		    }
 		}

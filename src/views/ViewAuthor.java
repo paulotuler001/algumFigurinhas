@@ -33,7 +33,6 @@ public class ViewAuthor extends JFrame {
 		setSize(new Dimension(800, 600));
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
-//		 setResizable(false);
 
 		int xx = this.getHeight() / 3;
 		int yy = this.getWidth() / 3;

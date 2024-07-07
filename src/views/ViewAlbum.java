@@ -15,7 +15,6 @@ public class ViewAlbum extends JFrame {
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
 
-        // Botões no canto superior esquerdo
         JButton changePasswordBtn = new JButton("1");
         changePasswordBtn.setFocusable(false);
         changePasswordBtn.setBackground(Color.white);
@@ -38,30 +37,29 @@ public class ViewAlbum extends JFrame {
         	}
         });
 
-        // JPanel para os botões no canto superior esquerdo
         JPanel topButtonsPanel = new JPanel();
         topButtonsPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-        topButtonsPanel.setBackground(new Color(13, 62, 16)); // Define a cor de fundo
+        topButtonsPanel.setBackground(new Color(13, 62, 16));
         topButtonsPanel.add(changePasswordBtn);
         topButtonsPanel.add(addnewFigureBtn);
         topButtonsPanel.add(aboutBtn);
 
-        // JPanel para exibir a foto da capa
-        String imagePath = "/images/serieTitle.jpg"; // Caminho da imagem da capa
+
+        String imagePath = "/images/serieTitle.jpg";
         ImageIcon coverImageIcon = new ImageIcon(getClass().getResource(imagePath));
         JLabel coverImageLabel = new JLabel(coverImageIcon);
 
 
-        // Controles de página
+
         JPanel pageControlsPanel = new JPanel();
         pageControlsPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
-        pageControlsPanel.setBackground(new Color(13, 62, 16)); // Define a cor de fundo
+        pageControlsPanel.setBackground(new Color(13, 62, 16)); 
         JButton firstPageBtn = new JButton("<<");
         JButton prevPageBtn = new JButton("<");
         JButton nextPageBtn = new JButton(">");
         JButton lastPageBtn = new JButton(">>");
         JLabel pageLabel = new JLabel("Página 1 de 10 ");
-        pageLabel.setForeground(Color.WHITE); // Define a cor do texto
+        pageLabel.setForeground(Color.WHITE);
         pageControlsPanel.add(firstPageBtn);
         firstPageBtn.setBackground(Color.white);
         firstPageBtn.setFocusable(false);
@@ -85,7 +83,6 @@ public class ViewAlbum extends JFrame {
         	}
         });
 
-        // JPanel principal que contém todos os componentes
         JPanel mainPanel = new JPanel(new BorderLayout());
         mainPanel.add(topButtonsPanel, BorderLayout.NORTH);
         mainPanel.add(coverImageLabel, BorderLayout.CENTER);

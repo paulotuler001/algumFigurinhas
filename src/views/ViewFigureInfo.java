@@ -52,11 +52,9 @@ public class ViewFigureInfo extends JDialog {
 		int yy = xx+50;
 		int fieldYY = yy - 28;
 		
-		//app icon
 		ImageIcon icon = new ImageIcon(getClass().getResource("/images/icon.png"));
     	dialog.setIconImage(icon.getImage());
-    	
-    	//background image
+
 		String imagePath = "/images/5.jpg";
         ImageIcon backgroundImageIcon = new ImageIcon(getClass().getResource(imagePath));
         Image backgroundImage = backgroundImageIcon.getImage();
@@ -68,13 +66,11 @@ public class ViewFigureInfo extends JDialog {
             }
         };
 
-        //name
 		JLabel nameLabel = new JLabel("Name");
 		nameLabel.setForeground(Color.WHITE);
 		JTextField nameField = new JTextField(15);
 		nameField.setBackground(Color.WHITE);
 		
-		//page
 		String[] pages = { "1", "2", "3", "4", "5", "6", "7" };
 		JLabel pageLabel = new JLabel("Page");
 		pageLabel.setForeground(Color.WHITE);
@@ -82,14 +78,12 @@ public class ViewFigureInfo extends JDialog {
 		dropdown.setBackground(Color.WHITE);
 		dropdown.setPreferredSize(new Dimension(150, dropdown.getPreferredSize().height));
 
-		//tag
 		JTextField tagField = new JTextField(15);
 		tagField.setBackground(Color.WHITE);
 		tagField.setEditable(false);
 		JLabel tagLabel = new JLabel("Tag");
 		tagLabel.setForeground(Color.WHITE);
 		
-		//copy to clipboard the hashMD5
 		JButton copyButton = new JButton("\u2398");
 		copyButton.setToolTipText("Copy to your clipboard");
 		Border leftBorder = BorderFactory.createMatteBorder(0, 2, 0, 0, Color.BLACK);
@@ -103,7 +97,7 @@ public class ViewFigureInfo extends JDialog {
 		copyButton.setBackground(Color.WHITE);
 		copyButton.setFocusable(false);
 
-        // Adiciona um ActionListener ao botão
+
         copyButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -117,7 +111,6 @@ public class ViewFigureInfo extends JDialog {
             }
         });
 		
-		//figure
 		JLabel figureLabel = new JLabel("Figure");
 		figureLabel.setForeground(Color.WHITE);
 		JTextField imageNameField = new JTextField(30);
@@ -127,7 +120,6 @@ public class ViewFigureInfo extends JDialog {
 		selectBtn.setBackground(Color.WHITE);
 		selectBtn.setBorder(null);
 		
-		//select figure button
 		selectBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser fileChooser = new JFileChooser();
@@ -170,7 +162,6 @@ public class ViewFigureInfo extends JDialog {
 			}
 		});
 
-		//description
 		JLabel descriptionLabel = new JLabel("Description");
 		descriptionLabel.setForeground(Color.WHITE);
 		JTextArea descriptionField = new JTextArea(15, 10);
@@ -181,8 +172,7 @@ public class ViewFigureInfo extends JDialog {
 		JScrollPane scrollPaneArea = new JScrollPane(descriptionField);
 		scrollPaneArea.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPaneArea.getVerticalScrollBar().setPreferredSize(new Dimension(8, Integer.MAX_VALUE));
-		
-		//ok button
+
 		JButton okayBtn = new JButton("Ok");
 		okayBtn.setFocusable(false);
 		okayBtn.setBackground(Color.WHITE);
@@ -192,11 +182,7 @@ public class ViewFigureInfo extends JDialog {
 		cancelBtn.setBackground(Color.WHITE);
 		cancelBtn.setForeground(Color.black);
 		label = new JLabel();
-		
-		//if they brought lf, lets set de info with this lf to edit him
-		
 
-		//ok controller
 		okayBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -223,7 +209,6 @@ public class ViewFigureInfo extends JDialog {
 		cancelBtn.addActionListener(e -> dialog.dispose());
 
 		
-		//size and coords of the items
 		nameLabel.setBounds(yy - 100, xx - 90, 100, 25);
 		nameField.setBounds(fieldYY, xx - 90, 200, 25);
 		pageLabel.setBounds(yy - 100, xx - 45, 185, 25);
@@ -240,13 +225,11 @@ public class ViewFigureInfo extends JDialog {
 		okayBtn.setBounds(fieldYY-10, xx + 175, 100, 25);
 		cancelBtn.setBounds(yy + 150, xx + 175, 100, 25);
 		
-		//setting hover to the buttons
 		selectBtn.addMouseListener(hoverButton(selectBtn));
 		copyButton.addMouseListener(hoverButton(copyButton));
 		cancelBtn.addMouseListener(hoverButton(cancelBtn));
 		okayBtn.addMouseListener(hoverButton(okayBtn));
 		
-		//adding the items in the panel
 		panel.setLayout(null);
 		panel.add(nameLabel);
 		panel.add(nameField);
@@ -304,7 +287,6 @@ public class ViewFigureInfo extends JDialog {
             try (DigestInputStream dis = new DigestInputStream(new FileInputStream(arquivo), md)) {
                 byte[] buffer = new byte[1024];
                 while (dis.read(buffer) != -1) {
-                    // Continua lendo o arquivo para calcular o hash
                 }
             }
 
@@ -360,24 +342,13 @@ public class ViewFigureInfo extends JDialog {
             return (BufferedImage) img;
         }
 
-        // Cria uma nova imagem BufferedImage
         BufferedImage bImage = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
 
-        // Desenha a imagem no BufferedImage
         Graphics2D g2 = bImage.createGraphics();
         g2.drawImage(img, 0, 0, null);
         g2.dispose();
 
         return bImage;
     }
-
-//	public static void main(String args[]) {
-//		SwingUtilities.invokeLater(() -> {
-//			LittleFigure lf = null;
-//			ViewFigureInfo vf = new ViewFigureInfo(lf);
-//				vf.openDialog(null);
-//		});
-//
-//	}
 
 }

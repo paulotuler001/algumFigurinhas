@@ -10,10 +10,6 @@ import javax.swing.*;
 import configuration.MusicPlayer;
 import entities.User;
 import enums.Role;
-//import services.AlbumService;
-//import services.LittleFigureService;
-//import services.LoginService;
-//import services.UserService;
 
 public class ViewSobre extends JFrame {
 
@@ -28,7 +24,7 @@ public class ViewSobre extends JFrame {
 		setResizable(false);
 		
 		//theme breaking bad
-		float volume = -30.0f; //trolei
+		float volume = -30.0f;
 		MusicPlayer mp = new MusicPlayer();
 		mp.playLoop();
 		mp.setVolume(volume);		JButton mute = new JButton("🔇");

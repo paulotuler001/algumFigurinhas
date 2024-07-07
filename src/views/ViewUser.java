@@ -29,7 +29,7 @@ public class ViewUser extends JDialog {
 	}
 
 	public void openDialog(JFrame parentFrame) {
-		Boolean isCreate = login.equals(""); // se for true, é pra criar, se nao, pra editar
+		Boolean isCreate = login.equals("");
 		JDialog dialog = new JDialog(parentFrame, "Add User", true);
 		dialog.setTitle("User Frame Login");
 		dialog.setSize(new Dimension(800, 600));
@@ -37,7 +37,6 @@ public class ViewUser extends JDialog {
 		
 		ImageIcon icon = new ImageIcon(getClass().getResource("/images/icon.png"));
     	dialog.setIconImage(icon.getImage());
-//		 setResizable(false);
 
 		int xx = 200;
 		int yy = xx+50;
@@ -64,7 +63,6 @@ public class ViewUser extends JDialog {
 		JLabel passwordLabel = new JLabel("Password");
 		passwordLabel.setForeground(Color.WHITE);
 		JPasswordField passwordField = new JPasswordField(15);
-//		passwordField.setText();
 		passwordField.setBackground(Color.WHITE);
 
 		String[] profile = { "Author", "Collector", "Administrator" };
@@ -135,8 +133,4 @@ public class ViewUser extends JDialog {
 		dialog.setVisible(true);
 	}
 
-//	public static void main(String[] args) {
-//		ViewUser vu = new ViewUser("zap", "zep", 2);
-//		vu.setVisible(true);
-//	}
 }
