@@ -30,13 +30,13 @@ public class ViewSplash extends JWindow {
         Random random = new Random();
         int randomNumber = random.nextInt(8);
         ArrayList<ImageIcon> icons = new ArrayList<>();
-        icons.add(new ImageIcon(getClass().getResource("/images/a.jpg")));
-        icons.add(new ImageIcon(getClass().getResource("/images/b.jpg")));
-        icons.add(new ImageIcon(getClass().getResource("/images/c.png")));
-        icons.add(new ImageIcon(getClass().getResource("/images/d.png")));
+        icons.add(new ImageIcon(getClass().getResource("/images/money.jpg")));
+        icons.add(new ImageIcon(getClass().getResource("/images/lab.png")));
+        icons.add(new ImageIcon(getClass().getResource("/images/epOne.jpg")));
+        icons.add(new ImageIcon(getClass().getResource("/images/coverLeadMen.jpg")));
         icons.add(new ImageIcon(getClass().getResource("/images/e.jpg")));
-        icons.add(new ImageIcon(getClass().getResource("/images/f.jpg")));
-        icons.add(new ImageIcon(getClass().getResource("/images/g.jpg")));
+        icons.add(new ImageIcon(getClass().getResource("/images/gunCollage.png")));
+        icons.add(new ImageIcon(getClass().getResource("/images/SaulCommercial.jpg")));
         icons.add(new ImageIcon(getClass().getResource("/images/h.jpg")));
 
         ImageIcon selectedIcon = icons.get(randomNumber);
@@ -88,5 +88,12 @@ public class ViewSplash extends JWindow {
             }
         });
         timer.start();
+    }
+    
+    public static void main(String[] args) {
+    	SwingUtilities.invokeLater(() -> {
+            ViewSplash splash = new ViewSplash();
+            splash.showSplash();
+		});
     }
 }

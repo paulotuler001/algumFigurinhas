@@ -153,19 +153,19 @@ public class ViewLogin extends JFrame {
 
 	public static void main(String args[]) {
 
-//		User author = new User(10, true, "Zap", Role.AUTHOR, "a@o.com", "123");
-//		User adm = new User(11, null, "Zed", Role.ADM, "a@oo.com", "123");
-//		User col = new User(99, true, "Zip", Role.COLLECTIONATOR, "a@ooo.com", "123");
-//		
-//		LittleFigureService lfs = new LittleFigureService();
-//		UserService as = new UserService();
-//		UserService ads = new UserService();
-//		AlbumService als = new AlbumService();
-//		UserService cs = new UserService();
-//		
-//		as.save(author);
-//		ads.save(adm);
-//		cs.save(col);
+		User author = new User(10, true, "Zap", Role.AUTHOR, "a@o.com", "123");
+		User adm = new User(5, null, "Zed", Role.ADM, "a@oo.com", "123");
+		User col = new User(99, true, "Zip", Role.COLLECTIONATOR, "a@ooo.com", "123");
+		
+		LittleFigureService lfs = new LittleFigureService();
+		UserService as = new UserService();
+		UserService ads = new UserService();
+		AlbumService als = new AlbumService();
+		UserService cs = new UserService();
+	
+	as.save(author);
+		ads.save(adm);
+		cs.save(col);
 		
 		
 		ViewLogin vl = new ViewLogin();
