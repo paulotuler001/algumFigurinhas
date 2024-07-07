@@ -85,7 +85,7 @@ public class UserRepository {
 
 	public Object[][] getAllUsers() {
 
-		String sql = "SELECT * FROM user";
+		String sql = "SELECT id, email, role FROM user";
 
 		try (Connection conn = SQLite.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql);) {
 
@@ -94,9 +94,11 @@ public class UserRepository {
 			Object[][] users = new Object[100][100];
 			while (rs.next()) {
 				int id = rs.getInt("id");
-				String name = rs.getString("name");
+				String email = rs.getString("email");
+				String role = rs.getString("role");
 				users[count][0] = id;
-				users[count][1] = name;
+				users[count][1] = email;
+				users[count][2] = role;
 				count++;
 			}
 			

@@ -128,6 +128,9 @@ public class ViewLogin extends JFrame {
 					JOptionPane.showMessageDialog(null, "Welcome back "+user.getRole().toString() + ": " + user.getName());
 					mp.stop();
 					if (user.getRole().equals(Role.ADM)) {
+						ViewSplash vs = new ViewSplash();
+						vs.openDialog();
+						
 						ViewAdmin va = new ViewAdmin();
 						va.setVisible(true);
 					} else if (user.getRole().equals(Role.AUTHOR)) {
