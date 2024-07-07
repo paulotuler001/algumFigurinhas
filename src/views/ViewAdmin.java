@@ -5,14 +5,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.regex.PatternSyntaxException;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.plaf.ScrollBarUI;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 import configuration.MusicPlayer;
 import entities.User;
@@ -31,31 +36,6 @@ public class ViewAdmin extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setLayout(new BorderLayout());
-		
-		//theme breaking bad
-//		float volume = -30.0f;
-//		MusicPlayer mp = new MusicPlayer();
-//		mp.playLoop();
-//		mp.setVolume(-30.0f);
-//		JButton mute = new JButton("🔇");
-//		mute.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				if(vol) {
-//					mp.setVolume(volume);
-//					vol = false;
-//					mute.setText("🔉");
-//				}else {
-//					mp.setVolume(-100.0f);
-//					vol = true;
-//					mute.setText("🔇");
-//				}
-//			}
-//		});
-//		mute.setFont(new Font("", Font.BOLD, 15));
-//		mute.setMargin(new Insets(2,2,2,2));
-//		mute.setFocusable(false);
-//		mute.setForeground(Color.WHITE);
-//		mute.setBackground(Color.DARK_GRAY);
 
 		ImageIcon icon = new ImageIcon(getClass().getResource("/images/icon.png"));
     	setIconImage(icon.getImage());
@@ -88,7 +68,7 @@ public class ViewAdmin extends JFrame {
 		JTextField filterField = new JTextField(15);
 		
 
-		String[] columns = { "E-mail", "Profile" };
+		String[] columns = { "#", "E-mail", "Profile" };
 		UserService us = new UserService();
 		DefaultTableModel model = new DefaultTableModel(us.getAllUsers(), columns);
 		JTable tabela = new JTable(model);
@@ -107,6 +87,9 @@ public class ViewAdmin extends JFrame {
 		tabela.getTableHeader().setBackground(Color.DARK_GRAY);
 		tabela.getTableHeader().setFont(new Font("Arial", Font.BOLD, 16));
 		tabela.getTableHeader().setForeground(Color.WHITE);
+		tabela.getColumnModel().getColumn(0).setPreferredWidth(10);
+		tabela.getColumnModel().getColumn(1).setPreferredWidth(250);
+		tabela.getColumnModel().getColumn(2).setPreferredWidth(60);
 		
 		removeUserBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -151,18 +134,39 @@ public class ViewAdmin extends JFrame {
 				adminRefreshed.setVisible(true);
 			}
 		});
-		
-		filterField.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//TODO filter
-				
-//				String searchText = filterField.getText().toLowerCase();
-//				Stream<Object[]> filteredUsers = Arrays.stream(us.getAllUsers())
-//						.filter(user -> user[1].toString().toLowerCase().contains(searchText))
-//						.map(user -> new Object[]{user[0], user[1]});
-//				List<Object[]> filteredUserss = new ArrayList<>();
-			}
-		});
+		TableRowSorter<TableModel> sorter = new TableRowSorter<>(model);
+        tabela.setRowSorter(sorter);
+
+        filterField.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                filter();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                filter();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                filter();
+            }
+
+            private void filter() {
+                String text = filterField.getText();
+                if (text.length() == 0) {
+                    sorter.setRowFilter(null); 
+                } else {
+                    try {
+                        sorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+                    } catch (PatternSyntaxException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+            }
+        });
+
 		
 		backBtn.addActionListener(e -> dispose());
 		

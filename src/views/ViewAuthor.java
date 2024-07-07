@@ -4,10 +4,15 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.regex.PatternSyntaxException;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 import configuration.MusicPlayer;
 import entities.LittleFigure;
@@ -192,6 +197,38 @@ public class ViewAuthor extends JFrame {
 				
 			}
 		});
+		
+		TableRowSorter<TableModel> sorter = new TableRowSorter<>(model);
+        tabela.setRowSorter(sorter);
+		filterFigureField.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                filter();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                filter();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                filter();
+            }
+
+            private void filter() {
+                String text = filterFigureField.getText();
+                if (text.length() == 0) {
+                    sorter.setRowFilter(null); 
+                } else {
+                    try {
+                        sorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+                    } catch (PatternSyntaxException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+            }
+        });
 
 		nameLabel.setBounds(yy - 100, xx - 90, 185, 25);
 		nameField.setBounds(yy - 50, xx - 90, 415, 25);
