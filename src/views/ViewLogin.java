@@ -140,8 +140,8 @@ public class ViewLogin extends JFrame {
 						ViewAuthor va = new ViewAuthor();
 						va.setVisible(true);
 					} else {
-						ViewCollectionator vc = new ViewCollectionator();
-						vc.setVisible(true);
+						ViewAlbum va = new ViewAlbum();
+						va.setVisible(true);
 					}
 					
 				} else {

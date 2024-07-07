@@ -1,5 +1,9 @@
 package services;
 
+import java.io.File;
+import java.util.ArrayList;
+
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 import entities.LittleFigure;
@@ -71,6 +75,10 @@ public class LittleFigureService {
 		
 		lfr.editLFById(id, lf);
 		
+	}
+	
+	public ArrayList<ImageIcon> getAllPhotos(){
+		return lfr.getAllPhotos();
 	}
 	
 }

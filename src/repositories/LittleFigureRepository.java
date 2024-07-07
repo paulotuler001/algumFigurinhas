@@ -1,10 +1,20 @@
 package repositories;
 
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 import configuration.SQLite;
 import entities.LittleFigure;
@@ -129,6 +139,34 @@ public class LittleFigureRepository {
 		
 	}
 	
+	public ArrayList<ImageIcon> getAllPhotos() {
+		
+		String sql = "SELECT photo FROM lFigure";
+		ArrayList<ImageIcon> lfs = new ArrayList<>();
+		try(
+		Connection conn = SQLite.getConnection();
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		){
+		ResultSet rs = pstmt.executeQuery();
+		while (rs.next()) {
+			ByteArrayInputStream bais = new ByteArrayInputStream(rs.getBytes(1));
+			try {
+				BufferedImage newImage = ImageIO.read(bais);
+				lfs.add(new ImageIcon(newImage));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+        }
+		SQLite.closeConnection();
+		return lfs;
+		}catch(SQLException e) {
+			SQLite.closeConnection();
+			System.out.println(e.getMessage());
+			return null;
+		}
+		
+	}
+	
 	public void deleteLFById(Integer id) {
 		
 		String sql = "DELETE FROM lFigure WHERE lFigure.id = ?";
@@ -206,4 +244,17 @@ public class LittleFigureRepository {
 	public void toString(LittleFigure lFigure) {
 		System.out.println(lFigure.getId() + " " + lFigure.getName());
 	}
+	
+	private static BufferedImage toBufferedImage(Image img) {
+        if (img instanceof BufferedImage) {
+            return (BufferedImage) img;
+        }
+        BufferedImage bImage = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+
+        Graphics2D g2 = bImage.createGraphics();
+        g2.drawImage(img, 0, 0, null);
+        g2.dispose();
+
+        return bImage;
+    }
 }

@@ -1,6 +1,9 @@
 package views;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.*;
 
 public class ViewAlbum extends JFrame {
@@ -65,6 +68,15 @@ public class ViewAlbum extends JFrame {
         pageControlsPanel.add(lastPageBtn);
         lastPageBtn.setBackground(Color.white);
         lastPageBtn.setFocusable(false);
+        
+        JFrame selFrame = this;
+        
+        nextPageBtn.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		ViewAllFiguresOne vaf = new ViewAllFiguresOne();
+        		vaf.openDialog(selFrame);
+        	}
+        });
 
         // JPanel principal que contém todos os componentes
         JPanel mainPanel = new JPanel(new BorderLayout());
