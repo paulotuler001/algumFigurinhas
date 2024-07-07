@@ -34,6 +34,7 @@ public class ViewFigureInfo extends JDialog {
 	private File selectedFile;
 	private String hashMD5;
 	private LittleFigure lf;
+	private byte[] lfImage;
 	
 	public ViewFigureInfo(LittleFigure lf) {
 		this.lf = lf;
@@ -42,7 +43,7 @@ public class ViewFigureInfo extends JDialog {
 	public void openDialog(JFrame parentFrame) {
 
 		JDialog dialog = new JDialog(parentFrame, "Add Figure", true);
-		dialog.setTitle("New Figure Frame");
+		dialog.setTitle("Figure Info Frame");
 		dialog.setSize(new Dimension(800, 600));
 		dialog.setLocationRelativeTo(null);
 		dialog.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -52,11 +53,11 @@ public class ViewFigureInfo extends JDialog {
 		int fieldYY = yy - 28;
 		
 		//app icon
-		ImageIcon icon = new ImageIcon(getClass().getResource("images/icon.png"));
+		ImageIcon icon = new ImageIcon(getClass().getResource("/images/icon.png"));
     	dialog.setIconImage(icon.getImage());
     	
     	//background image
-		String imagePath = "images/5.jpg";
+		String imagePath = "/images/5.jpg";
         ImageIcon backgroundImageIcon = new ImageIcon(getClass().getResource(imagePath));
         Image backgroundImage = backgroundImageIcon.getImage();
         JPanel panel = new JPanel() {
@@ -277,11 +278,20 @@ public class ViewFigureInfo extends JDialog {
 			Image resizedImage = newImage.getScaledInstance(220,250, Image.SCALE_SMOOTH);
 			ImageIcon resizedImageIcon = new ImageIcon(resizedImage);
 			label.setIcon(resizedImageIcon);
+			
 			label.setBounds(yy + 180, xx - 100, 220, 250);
 			tagField.setText(lf.getTag());
 			descriptionField.setText(lf.getDescription());
+			
+		 	selectedFile = new File("output.png");
+
+	        try {
+	            ImageIO.write(toBufferedImage(resizedImage), "png", selectedFile);
+	            System.out.println("Imagem salva como: " + selectedFile.getAbsolutePath());
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
 		}
-		
 		
 		dialog.add(panel);
 		dialog.setVisible(true);
@@ -345,6 +355,21 @@ public class ViewFigureInfo extends JDialog {
 			return null;
 		}
 	}
+	 private static BufferedImage toBufferedImage(Image img) {
+        if (img instanceof BufferedImage) {
+            return (BufferedImage) img;
+        }
+
+        // Cria uma nova imagem BufferedImage
+        BufferedImage bImage = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+
+        // Desenha a imagem no BufferedImage
+        Graphics2D g2 = bImage.createGraphics();
+        g2.drawImage(img, 0, 0, null);
+        g2.dispose();
+
+        return bImage;
+    }
 
 //	public static void main(String args[]) {
 //		SwingUtilities.invokeLater(() -> {

@@ -35,7 +35,7 @@ public class ViewUser extends JDialog {
 		dialog.setSize(new Dimension(800, 600));
 		dialog.setLocationRelativeTo(null);
 		
-		ImageIcon icon = new ImageIcon(getClass().getResource("images/icon.png"));
+		ImageIcon icon = new ImageIcon(getClass().getResource("/images/icon.png"));
     	dialog.setIconImage(icon.getImage());
 //		 setResizable(false);
 
@@ -61,14 +61,14 @@ public class ViewUser extends JDialog {
 		loginField.setText(login);
 		loginField.setBackground(Color.WHITE);
 
-		JLabel passwordLabel = new JLabel("Senha");
+		JLabel passwordLabel = new JLabel("Password");
 		passwordLabel.setForeground(Color.WHITE);
 		JPasswordField passwordField = new JPasswordField(15);
 //		passwordField.setText();
 		passwordField.setBackground(Color.WHITE);
 
 		String[] profile = { "Author", "Collector", "Administrator" };
-		JLabel profileLabel = new JLabel("Perfil");
+		JLabel profileLabel = new JLabel("Profile");
 		profileLabel.setForeground(Color.WHITE);
 		JComboBox<String> dropdown = new JComboBox<>(profile);
 		dropdown.setSelectedIndex(userProfile);
@@ -86,7 +86,7 @@ public class ViewUser extends JDialog {
 		okayBtn.setFocusable(false);
 		okayBtn.setBackground(Color.WHITE);
 		okayBtn.setForeground(Color.black);
-		JButton cancelBtn = new JButton("Cancelar");
+		JButton cancelBtn = new JButton("Cancel");
 		cancelBtn.setFocusable(false);
 		cancelBtn.setBackground(Color.WHITE);
 		cancelBtn.setForeground(Color.black);

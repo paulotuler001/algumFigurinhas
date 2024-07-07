@@ -147,14 +147,14 @@ public class LittleFigureRepository {
 	}
 	
 	public void deleteAllLFs() {
-		String sql = "DELETE * FROM lFigure;";
+		String sql = "DELETE FROM lFigure;";
 		try(Connection conn = SQLite.getConnection();
 				Statement stmt = conn.createStatement();){
-			stmt.execute(sql);
 			System.out.println("All LFs were been delete successfully");
+			stmt.executeUpdate(sql);
 			SQLite.closeConnection();
 		}catch(SQLException e) {
-			e.getMessage();
+			System.out.println(e.getMessage());
 			SQLite.closeConnection();
 		}
 	}
@@ -167,9 +167,8 @@ public class LittleFigureRepository {
 			ResultSet rs = pstmt.executeQuery();
 			Integer returno = 1;
 			if(rs.next()) {
-				returno = rs.getInt(1) == 0 ? 1 : rs.getInt(1);
+				returno = rs.getInt(1) == 0 ? 1 : rs.getInt(1) == 1 ? 2 : rs.getInt(1)+1;
 			}
-			returno++;
 			SQLite.closeConnection();
 			return returno;
 		}catch(SQLException e) {

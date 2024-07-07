@@ -44,20 +44,20 @@ public class LittleFigureService {
 		
 	}
 	
-	public void deleteAllLFs() {
+	public int deleteAllLFs() {
 		
 		int response = JOptionPane.showConfirmDialog(null, "Você realmente quer deletar tudo?", "Confirmação", JOptionPane.YES_NO_OPTION);
 
         if (response == JOptionPane.YES_OPTION) {
-            // Segundo diálogo de confirmação
             int secondResponse = JOptionPane.showConfirmDialog(null, "Tem certeza? TUDO será deletado!", "Confirmação Final", JOptionPane.YES_NO_OPTION);
 
             if (secondResponse == JOptionPane.YES_OPTION) {
-                // Deleta todos os registros
                 lfr.deleteAllLFs();
                 JOptionPane.showMessageDialog(null, "Todos os registros foram deletados com sucesso.");
+                return 1;
             }
         }
+        return 0;
 	}
 	
 	public void editLFById(Integer id, LittleFigure lf) {

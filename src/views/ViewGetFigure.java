@@ -12,7 +12,7 @@ public class ViewGetFigure extends JFrame {
 	private JLabel label;
 
 	public ViewGetFigure() {
-		setTitle("Figure Info Frame");
+		setTitle("New Figure Frame");
 		setSize(new Dimension(800, 600));
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
@@ -21,7 +21,7 @@ public class ViewGetFigure extends JFrame {
 		int xx = this.getHeight() / 3;
 		int yy = this.getWidth() / 3;
 		
-		String imagePath = "/images/gradient.jfif";
+		String imagePath = "/images/5.jpg";
         ImageIcon backgroundImageIcon = new ImageIcon(imagePath);
         Image backgroundImage = backgroundImageIcon.getImage();
 

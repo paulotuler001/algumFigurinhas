@@ -31,8 +31,7 @@ public class ViewLogin extends JFrame {
 		float volume = -30.0f; //trolei
 		MusicPlayer mp = new MusicPlayer();
 		mp.playLoop();
-		mp.setVolume(0.0f);
-		JButton mute = new JButton("🔇");
+		mp.setVolume(volume);		JButton mute = new JButton("🔇");
 		mute.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(vol) {
@@ -79,7 +78,7 @@ public class ViewLogin extends JFrame {
 		JTextField usernameField = new JTextField(15);
 		usernameField.setBackground(Color.WHITE);
 
-		JLabel passwordLabel = new JLabel("Senha");
+		JLabel passwordLabel = new JLabel("Password");
 		passwordLabel.setForeground(Color.WHITE);
 		JPasswordField passwordField = new JPasswordField(15);
 		passwordField.setBackground(Color.WHITE);
@@ -90,7 +89,7 @@ public class ViewLogin extends JFrame {
 		loginButton.setBackground(Color.WHITE);
 		loginButton.setForeground(Color.black);
 
-		JButton cancelButton = new JButton("Sair");
+		JButton cancelButton = new JButton("Close");
 		cancelButton.setFont(new Font("Georgia", Font.BOLD, 12));
 		cancelButton.setFocusable(false);
 		cancelButton.setBackground(Color.WHITE);

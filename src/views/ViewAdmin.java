@@ -26,36 +26,36 @@ public class ViewAdmin extends JFrame {
 		
 		JFrame selFrame = this; 
 		
-		setTitle("FrmAdmin");
+		setTitle("Admin Frame");
 		setSize(new Dimension(800, 600));
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setLayout(new BorderLayout());
 		
 		//theme breaking bad
-		float volume = -30.0f;
-		MusicPlayer mp = new MusicPlayer();
-		mp.playLoop();
-		mp.setVolume(-30.0f);
-		JButton mute = new JButton("🔇");
-		mute.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(vol) {
-					mp.setVolume(volume);
-					vol = false;
-					mute.setText("🔉");
-				}else {
-					mp.setVolume(-100.0f);
-					vol = true;
-					mute.setText("🔇");
-				}
-			}
-		});
-		mute.setFont(new Font("", Font.BOLD, 15));
-		mute.setMargin(new Insets(2,2,2,2));
-		mute.setFocusable(false);
-		mute.setForeground(Color.WHITE);
-		mute.setBackground(Color.DARK_GRAY);
+//		float volume = -30.0f;
+//		MusicPlayer mp = new MusicPlayer();
+//		mp.playLoop();
+//		mp.setVolume(-30.0f);
+//		JButton mute = new JButton("🔇");
+//		mute.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				if(vol) {
+//					mp.setVolume(volume);
+//					vol = false;
+//					mute.setText("🔉");
+//				}else {
+//					mp.setVolume(-100.0f);
+//					vol = true;
+//					mute.setText("🔇");
+//				}
+//			}
+//		});
+//		mute.setFont(new Font("", Font.BOLD, 15));
+//		mute.setMargin(new Insets(2,2,2,2));
+//		mute.setFocusable(false);
+//		mute.setForeground(Color.WHITE);
+//		mute.setBackground(Color.DARK_GRAY);
 
 		ImageIcon icon = new ImageIcon(getClass().getResource("/images/icon.png"));
     	setIconImage(icon.getImage());
@@ -88,7 +88,7 @@ public class ViewAdmin extends JFrame {
 		JTextField filterField = new JTextField(15);
 		
 
-		String[] columns = { "Name", "Profile" };
+		String[] columns = { "E-mail", "Profile" };
 		UserService us = new UserService();
 		DefaultTableModel model = new DefaultTableModel(us.getAllUsers(), columns);
 		JTable tabela = new JTable(model);
@@ -174,7 +174,7 @@ public class ViewAdmin extends JFrame {
 		scrollPane.setBounds(xx-40, yy+100, 550, 250);
 		userLabel.setBounds(xx-50, yy, 200,200);
 		backBtn.setBounds(0,0,35,35);
-		mute.setBounds(50,0,35,35);
+		//mute.setBounds(50,0,35,35);
 		
 		addUserBtn.setMargin(new Insets(2,2,2,2));
 		removeUserBtn.setMargin(new Insets(2,2,2,2));
@@ -188,8 +188,8 @@ public class ViewAdmin extends JFrame {
 		query.setBackground(new Color(13, 62, 16));
 		query.setPreferredSize(new Dimension(800,480));
 
-		String imagePath = "images/5.jpg";
-        ImageIcon backgroundImageIcon = new ImageIcon(imagePath);
+		String imagePath = "/images/5.jpg";
+        ImageIcon backgroundImageIcon = new ImageIcon(getClass().getResource(imagePath));
         Image backgroundImage = backgroundImageIcon.getImage();
 		
 		JPanel panel = new JPanel(){
@@ -201,7 +201,6 @@ public class ViewAdmin extends JFrame {
         };
 		panel.setLayout(null);
 		panel.setPreferredSize(new Dimension(800,600));
-		panel.setBackground(new Color(13, 62, 16));
 		panel.add(addUserBtn);
 		panel.add(removeUserBtn);
 		panel.add(editUserBtn);
@@ -210,7 +209,7 @@ public class ViewAdmin extends JFrame {
 		panel.add(userLabel);
 		panel.add(scrollPane);
 		panel.add(backBtn);
-		panel.add(mute);
+		//panel.add(mute);
         
 		add(panel, BorderLayout.NORTH);
 	}
