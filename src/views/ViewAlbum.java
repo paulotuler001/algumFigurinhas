@@ -30,6 +30,13 @@ public class ViewAlbum extends JFrame {
         aboutBtn.setFocusable(false);
         aboutBtn.setBackground(Color.white);
         aboutBtn.setToolTipText("About");
+        
+        aboutBtn.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		ViewSobre vs = new ViewSobre();
+        		vs.setVisible(true);
+        	}
+        });
 
         // JPanel para os botões no canto superior esquerdo
         JPanel topButtonsPanel = new JPanel();

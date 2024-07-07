@@ -1,6 +1,8 @@
 package views;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
 
@@ -8,16 +10,16 @@ import javax.swing.*;
 
 import services.LittleFigureService;
 
-		public class ViewAllFiguresOne extends JDialog {
+		public class ViewAllFiguresOne extends JFrame {
 //		    private int totalFigurines = 12; // Exemplo com 12 figurinhas
 //		    private int figurinesPerPage = 6; 
 		    public void openDialog(JFrame parentFrame) {
-		    	JDialog dialog = new JDialog(parentFrame, "Page Two", true);
-		    	dialog.setTitle("All Figures Frame");		        
-		    	dialog.setSize(new Dimension(800, 600));
-		    	dialog.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		        dialog.setLocationRelativeTo(null);
-		    	dialog.setLayout(new BorderLayout());
+//		    	JDialog dialog = new JDialog(parentFrame, "Page Two", true);
+		    	this.setTitle("All Figures Frame");		        
+		    	this.setSize(new Dimension(800, 600));
+		    	this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		        this.setLocationRelativeTo(null);
+		    	this.setLayout(new BorderLayout());
 		               
 
 		        // Botões no canto superior esquerdo
@@ -35,7 +37,12 @@ import services.LittleFigureService;
 		        aboutBtn.setFocusable(false);
 		        aboutBtn.setBackground(Color.white);
 		        aboutBtn.setToolTipText("About");
-
+		        aboutBtn.addActionListener(new ActionListener() {
+		        	public void actionPerformed(ActionEvent e) {
+		        		ViewSobre vs = new ViewSobre();
+		        		vs.setVisible(true);
+		        	}
+		        });
 		        JPanel topButtonsPanel = new JPanel();
 		        topButtonsPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
 		        topButtonsPanel.add(changePasswordBtn);
@@ -94,15 +101,15 @@ import services.LittleFigureService;
 		        lastPageBtn.setBackground(Color.white);
 		        lastPageBtn.setFocusable(false);
 		        
-		        prevPageBtn.addActionListener(e-> dialog.dispose());
-		        firstPageBtn.addActionListener(e-> dialog.dispose());
+		        prevPageBtn.addActionListener(e-> this.dispose());
+		        firstPageBtn.addActionListener(e-> this.dispose());
 		        
 		        JPanel mainPanel = new JPanel(new BorderLayout());
 		        mainPanel.add(topButtonsPanel, BorderLayout.NORTH);
 		        mainPanel.add(figurineSlotsPanel, BorderLayout.CENTER);
 		        mainPanel.add(pageControlsPanel, BorderLayout.SOUTH);
-		        dialog.add(mainPanel, BorderLayout.CENTER);
-		        dialog.setVisible(true);
+		        this.add(mainPanel, BorderLayout.CENTER);
+		        this.setVisible(true);
 		    }
 
 //		    public static void main(String args[]) {

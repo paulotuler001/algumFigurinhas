@@ -58,7 +58,8 @@ public class ViewSobre extends JFrame {
 		String imagePath = "/images/sobre.jpg";
 		ImageIcon backgroundImageIcon = new ImageIcon(getClass().getResource(imagePath));
 		Image backgroundImage = backgroundImageIcon.getImage();
-
+		JButton back = new JButton("\u2190");
+		back.addActionListener(e-> dispose());
 		JPanel panel = new JPanel() {
 			@Override
 			protected void paintComponent(Graphics g) {
@@ -71,8 +72,17 @@ public class ViewSobre extends JFrame {
 		panel.setPreferredSize(new Dimension(253, 353));
 
 		mute.setBounds(0,0,40,40);
-
+		back.setBounds(50,0,40,40);
+		back.setToolTipText("Log Out");
+		back.addActionListener(e -> dispose());
+		back.setMargin(new Insets(3,3,3,3));
+		back.setFocusable(false);
+		back.setBackground(Color.DARK_GRAY);
+		back.setFont(new Font("", Font.BOLD, 20));
+		back.setForeground(Color.WHITE);
+		
 		panel.add(mute);
+		panel.add(back);
 		add(panel);
 		
 	}
