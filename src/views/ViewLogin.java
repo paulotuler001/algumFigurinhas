@@ -115,7 +115,7 @@ public class ViewLogin extends JFrame {
 		add(panel);
 		
 		LoginService ls = new LoginService();
-
+		JFrame selFrame = this;
 		loginButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -127,10 +127,13 @@ public class ViewLogin extends JFrame {
 					JOptionPane.showMessageDialog(null, "Login successful");
 					JOptionPane.showMessageDialog(null, "Welcome back "+user.getRole().toString() + ": " + user.getName());
 					mp.stop();
+					
+					SwingUtilities.invokeLater(() -> {
+			            ViewSplash splash = new ViewSplash();
+			            splash.showSplash();
+					});
+					
 					if (user.getRole().equals(Role.ADM)) {
-						ViewSplash vs = new ViewSplash();
-						vs.openDialog();
-						
 						ViewAdmin va = new ViewAdmin();
 						va.setVisible(true);
 					} else if (user.getRole().equals(Role.AUTHOR)) {
@@ -150,19 +153,19 @@ public class ViewLogin extends JFrame {
 
 	public static void main(String args[]) {
 
-		User author = new User(10, true, "Zap", Role.AUTHOR, "a@o.com", "123");
-		User adm = new User(11, null, "Zed", Role.ADM, "a@oo.com", "123");
-		User col = new User(99, true, "Zip", Role.COLLECTIONATOR, "a@ooo.com", "123");
-		
-		LittleFigureService lfs = new LittleFigureService();
-		UserService as = new UserService();
-		UserService ads = new UserService();
-		AlbumService als = new AlbumService();
-		UserService cs = new UserService();
-		
-		as.save(author);
-		ads.save(adm);
-		cs.save(col);
+//		User author = new User(10, true, "Zap", Role.AUTHOR, "a@o.com", "123");
+//		User adm = new User(11, null, "Zed", Role.ADM, "a@oo.com", "123");
+//		User col = new User(99, true, "Zip", Role.COLLECTIONATOR, "a@ooo.com", "123");
+//		
+//		LittleFigureService lfs = new LittleFigureService();
+//		UserService as = new UserService();
+//		UserService ads = new UserService();
+//		AlbumService als = new AlbumService();
+//		UserService cs = new UserService();
+//		
+//		as.save(author);
+//		ads.save(adm);
+//		cs.save(col);
 		
 		
 		ViewLogin vl = new ViewLogin();
